@@ -5,9 +5,11 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
 
-A modern, high-performance portfolio website designed for a 3D Artist and VR Developer. This project leverages the power of **React**, **Three.js**, and **Tailwind CSS** to create an immersive and interactive user experience.
+My personal portfolio website showcasing my 3D art and VR development projects and demonstrating my growth as a creator and developer.
 
-## ✨ Features
+This repository contains the source code for my portfolio, built to be an immersive digital showcase. 
+
+## Features
 
 - **Interactive 3D Hero Section**: A stunning entry point featuring floating 3D elements rendered with **React Three Fiber**.
 - **Dynamic Project Showcase**: A filterable grid layout to display Blender, Unity, and VR projects, complete with detailed modals.
@@ -16,7 +18,7 @@ A modern, high-performance portfolio website designed for a 3D Artist and VR Dev
 - **Dark/Light Mode**: Built-in theme toggling support for user preference.
 - **Modern UI/UX**: Clean, professional aesthetic with custom components and iconography from **Lucide React**.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Core**: [React](https://reactjs.org/) (v18), [Vite](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
@@ -25,7 +27,7 @@ A modern, high-performance portfolio website designed for a 3D Artist and VR Dev
 - **Routing**: [React Router DOM](https://reactrouter.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these steps to set up the project locally on your machine.
 
@@ -65,7 +67,7 @@ Locally preview the production build:
 npm run preview
 ```
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 src/
@@ -82,7 +84,7 @@ src/
 └── index.css           # Global styles and Tailwind directives
 ```
 
-## ⚙️ Customization
+## Customization
 
 ### Adding/Editing Projects
 Navigate to `src/data/projects.js`. You can add new projects to the array following the existing structure:
@@ -104,7 +106,7 @@ The 3D scene is located in `src/components/Hero/Scene.jsx`. You can modify the `
 ### Styling & Colors
 Global styles are in `src/index.css`. You can also customize the Tailwind theme configuration in `tailwind.config.js`.
 
-## 📦 Deployment
+## Deployment
 
 This project is optimized for deployment on platforms like **Netlify**, **Vercel**, or **GitHub Pages**.
 
@@ -113,6 +115,6 @@ This project is optimized for deployment on platforms like **Netlify**, **Vercel
 2.  Set the **Build Command** to `npm run build`.
 3.  Set the **Publish Directory** to `dist`.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
