@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download } from 'lucide-react';
+import profileImage from '../../assets/profile.png';
 
 const About = () => {
     const skills = [
@@ -22,10 +23,11 @@ const About = () => {
                         className="w-full md:w-1/2"
                     >
                         <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-800 to-black group">
-                            {/* Placeholder for profile image or 3D avatar */}
-                            <div className="absolute inset-0 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:scale-105 transition-transform duration-500">
-                                <span className="text-lg">Profile Image / 3D Avatar</span>
-                            </div>
+                            <img
+                                src={profileImage}
+                                alt="Zohair Banoori Profile"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
                         </div>
                     </motion.div>
 
