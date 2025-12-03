@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Download } from 'lucide-react';
 import profileImage from '../../assets/profile.png';
 
@@ -9,6 +9,32 @@ const About = () => {
         "3D Modeling", "Texturing", "Animation", "Shader Graph",
         "React.js", "Three.js"
     ];
+
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
+    const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
+
+    const rotateX = useTransform(mouseY, [-0.5, 0.5], ["10deg", "-10deg"]);
+    const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseXVal = e.clientX - rect.left;
+        const mouseYVal = e.clientY - rect.top;
+        const xPct = mouseXVal / width - 0.5;
+        const yPct = mouseYVal / height - 0.5;
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
 
     return (
         <section id="about" className="py-20 bg-gray-50 dark:bg-black/50 transition-colors duration-300 overflow-hidden">
@@ -21,14 +47,26 @@ const About = () => {
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
                         className="w-full md:w-1/2"
+                        style={{ perspective: 1000 }}
                     >
-                        <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-800 to-black group">
+                        <motion.div
+                            style={{
+                                rotateX,
+                                rotateY,
+                                transformStyle: "preserve-3d",
+                            }}
+                            whileHover={{ scale: 1.05 }}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                            className="relative aspect-square rounded-2xl shadow-2xl bg-gradient-to-br from-gray-800 to-black overflow-hidden cursor-pointer"
+                        >
                             <img
                                 src={profileImage}
                                 alt="Zohair Banoori Profile"
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="w-full h-full object-cover"
+                                style={{ backfaceVisibility: 'hidden' }}
                             />
-                        </div>
+                        </motion.div>
                     </motion.div>
 
                     {/* Content */}
