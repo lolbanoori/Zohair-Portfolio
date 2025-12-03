@@ -28,30 +28,31 @@ My personal portfolio website showcasing my 3D art and VR development projects. 
 ## Installation & Setup
 
 1. **Clone the repository:**
-   ```
-   git clone [https://github.com/lolbanoori/Zohair-Portfolio.git](https://github.com/lolbanoori/Zohair-Portfolio.git)
-   cd Zohair-Portfolio
+```
+git clone [https://github.com/lolbanoori/Zohair-Portfolio.git](https://github.com/lolbanoori/Zohair-Portfolio.git)
+cd Zohair-Portfolio
 ```
 
 2. **Install dependencies:**
-   ```bash
-   npm install
+```
+npm install
+```
 
 3. **Configure Environment Variables:** Create a ```.env``` file in the root directory and add your EmailJS credentials:
-
-Code snippet
-
+```
 VITE_EMAILJS_SERVICE_ID=your_service_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
 VITE_EMAILJS_TEMPLATE_NOTIFICATION_ID=your_notification_template_id
 VITE_EMAILJS_TEMPLATE_AUTOREPLY_ID=your_autoreply_template_id
-Start the development server:
+```
 
-Bash
-
+4. **Start the development server:**
+```
 npm run dev
-Architecture Note
+```
+
+**Architecture Note**
 To prevent WebGL context loss and GPU overload, this project unmounts the heavy home screen 3D scene when navigating to individual project details. This allows heavy content (like Unity WebGL builds or Marmoset Viewers) to utilize 100% of available resources without crashing the browser.
 
-License
+**License**
 This project is licensed under the MIT License.
