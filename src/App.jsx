@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Hero from './components/Hero/Hero';
-import Portfolio from './components/Portfolio/Portfolio';
-import About from './components/About/About';
-import Contact from './components/Contact/Contact';
+
+const Portfolio = React.lazy(() => import('./components/Portfolio/Portfolio'));
+const About = React.lazy(() => import('./components/About/About'));
+const Contact = React.lazy(() => import('./components/Contact/Contact'));
 
 function App() {
     return (
@@ -14,9 +15,11 @@ function App() {
                     <Route path="/" element={
                         <>
                             <Hero />
-                            <Portfolio />
-                            <About />
-                            <Contact />
+                            <React.Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+                                <Portfolio />
+                                <About />
+                                <Contact />
+                            </React.Suspense>
                         </>
                     } />
                     {/* Add more routes if needed for standalone pages */}

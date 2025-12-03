@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring, useInView } from 'framer-motion';
 import { Download } from 'lucide-react';
 import profileImage from '../../assets/profile.png';
 import resumePdf from '../../assets/2nd Year Resume.pdf';
@@ -59,6 +59,16 @@ const About = () => {
         }
     };
 
+    const ref = React.useRef(null);
+    const isInView = useTransform(useMotionValue(0), v => v) // Dummy transform to keep hooks consistent if needed, but actually we need useInView hook.
+    // Wait, I should import useInView properly.
+    // Let's rewrite the imports and the component start.
+
+    // Actually, I can just use the ref on the paragraph or the span.
+    // Let's use a ref for the text container.
+    const textRef = React.useRef(null);
+    const isTextInView = useInView(textRef);
+
     return (
         <section id="about" className="py-20 bg-gray-50 dark:bg-black/50 transition-colors duration-300 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -105,36 +115,36 @@ const About = () => {
                             <span className="absolute bottom-0 left-0 w-full h-1 bg-primary rounded-full transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
                         </h2>
 
-                        <div className="text-lg text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
+                        <div ref={textRef} className="text-lg text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
                             <p>
                                 I am a <motion.span
                                     variants={neonFlicker}
                                     initial="initial"
-                                    animate="animate"
+                                    animate={isTextInView ? "animate" : "initial"}
                                     whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(0, 216, 255)" }}
                                     className="inline-block font-orbitron font-bold text-primary cursor-default"
                                 >3D Artist</motion.span> and <motion.span
                                     variants={neonFlicker}
                                     initial="initial"
-                                    animate="animate"
+                                    animate={isTextInView ? "animate" : "initial"}
                                     whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 0, 85)" }}
                                     className="inline-block font-orbitron font-bold text-secondary cursor-default"
                                 >VR Developer</motion.span> shaping interactive worlds with a balance of precision and creative intent. My path began in <motion.span
                                     variants={neonFlicker}
                                     initial="initial"
-                                    animate="animate"
+                                    animate={isTextInView ? "animate" : "initial"}
                                     whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(0, 216, 255)" }}
                                     className="inline-block font-orbitron font-bold text-primary cursor-default"
                                 >Blender</motion.span> and expanded into building responsive, real-time VR experiences in <motion.span
                                     variants={neonFlicker}
                                     initial="initial"
-                                    animate="animate"
+                                    animate={isTextInView ? "animate" : "initial"}
                                     whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 0, 85)" }}
                                     className="inline-block font-orbitron font-bold text-secondary cursor-default"
                                 >Unity</motion.span> for the <motion.span
                                     variants={neonFlicker}
                                     initial="initial"
-                                    animate="animate"
+                                    animate={isTextInView ? "animate" : "initial"}
                                     whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 165, 0)" }}
                                     className="inline-block font-orbitron font-bold text-orange-500 cursor-default"
                                 >Meta Quest</motion.span> ecosystem.
@@ -143,13 +153,13 @@ const About = () => {
                                 My work blends clean visual design with purposeful interaction systems. I build environments, assets, and mechanics that stay optimized, intuitive, and grounded in real use. My long-term focus is <motion.span
                                     variants={neonFlicker}
                                     initial="initial"
-                                    animate="animate"
+                                    animate={isTextInView ? "animate" : "initial"}
                                     whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 0, 85)" }}
                                     className="inline-block font-orbitron font-bold text-secondary cursor-default"
                                 >AR/VR</motion.span> and the emerging <motion.span
                                     variants={neonFlicker}
                                     initial="initial"
-                                    animate="animate"
+                                    animate={isTextInView ? "animate" : "initial"}
                                     whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 165, 0)" }}
                                     className="inline-block font-orbitron font-bold text-orange-500 cursor-default"
                                 >Metaverse</motion.span>—spaces where technical discipline and imaginative design meet.

@@ -1,12 +1,17 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment } from '@react-three/drei';
-import Scene from './Scene';
 import { ArrowDown } from 'lucide-react';
+import { useInView } from 'framer-motion';
+
+const Scene = React.lazy(() => import('./Scene'));
 
 const Hero = () => {
+    const ref = useRef(null);
+    const isInView = useInView(ref);
+
     return (
-        <section id="hero" className="relative h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center overflow-hidden">
+        <section ref={ref} id="hero" className="relative h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center overflow-hidden">
             {/* Text Content */}
             <div className="w-full md:w-1/2 px-6 md:px-12 z-10 flex flex-col justify-center items-start space-y-6">
                 <h1 className="text-5xl md:text-7xl font-bold leading-tight">
@@ -35,7 +40,7 @@ const Hero = () => {
 
             {/* 3D Scene */}
             <div className="w-full md:w-1/2 h-[50vh] md:h-full absolute md:relative top-0 right-0 -z-0 md:z-0 opacity-50 md:opacity-100">
-                <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+                <Canvas frameloop={isInView ? "always" : "never"} camera={{ position: [0, 0, 5], fov: 45 }}>
                     <Suspense fallback={null}>
                         <ambientLight intensity={0.5} />
                         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
