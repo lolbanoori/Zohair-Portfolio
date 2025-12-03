@@ -51,8 +51,8 @@ VITE_EMAILJS_TEMPLATE_AUTOREPLY_ID=your_autoreply_template_id
 npm run dev
 ```
 
-**Architecture Note**
+## Architecture Note
 To prevent WebGL context loss and GPU overload, this project unmounts the heavy home screen 3D scene when navigating to individual project details. This allows heavy content (like Unity WebGL builds or Marmoset Viewers) to utilize 100% of available resources without crashing the browser.
 
-**License**
+## License
 This project is licensed under the MIT License.
