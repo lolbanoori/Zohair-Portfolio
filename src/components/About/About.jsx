@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Download } from 'lucide-react';
 import profileImage from '../../assets/profile.png';
+import resumePdf from '../../assets/2nd Year Resume.pdf';
 
 const About = () => {
     const skills = [
@@ -134,14 +135,16 @@ const About = () => {
                         </div>
 
                         <div className="pt-4">
-                            <motion.button
+                            <motion.a
+                                href={resumePdf}
+                                download="Zohair_Banoori_Resume.pdf"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="flex items-center space-x-2 px-6 py-3 bg-dark dark:bg-light text-light dark:text-dark rounded-full font-semibold hover:shadow-lg hover:shadow-primary/20 transition-all"
+                                className="inline-flex items-center space-x-2 px-6 py-3 bg-dark dark:bg-light text-light dark:text-dark rounded-full font-semibold hover:shadow-lg hover:shadow-primary/20 transition-all"
                             >
                                 <Download size={20} />
                                 <span>Download Resume</span>
-                            </motion.button>
+                            </motion.a>
                         </div>
                     </motion.div>
                 </div>
