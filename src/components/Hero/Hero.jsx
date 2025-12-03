@@ -10,7 +10,7 @@ const Hero = () => {
             {/* Text Content */}
             <div className="w-full md:w-1/2 px-6 md:px-12 z-10 flex flex-col justify-center items-start space-y-6">
                 <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                    Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Zohair Banoori</span>
+                    Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Zohair</span>
                 </h1>
                 <h2 className="text-2xl md:text-3xl text-gray-600 dark:text-gray-300">
                     3D Artist & VR Developer
