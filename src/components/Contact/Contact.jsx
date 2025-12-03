@@ -1,7 +1,35 @@
-import React from 'react';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Mail, MapPin, Phone, Send, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+    const formRef = useRef();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [status, setStatus] = useState({ type: '', message: '' });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setStatus({ type: '', message: '' });
+
+        emailjs.sendForm(
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+            formRef.current,
+            import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        )
+            .then((result) => {
+                setStatus({ type: 'success', message: 'Message sent successfully! I will get back to you soon.' });
+                formRef.current.reset();
+            }, (error) => {
+                setStatus({ type: 'error', message: 'Failed to send message. Please try again later.' });
+                console.error(error.text);
+            })
+            .finally(() => {
+                setIsSubmitting(false);
+            });
+    };
+
     return (
         <section id="contact" className="py-20 bg-light dark:bg-dark transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,22 +75,26 @@ const Contact = () => {
                     </div>
 
                     {/* Contact Form */}
-                    <form className="space-y-6">
+                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
+                                <label htmlFor="user_name" className="block text-sm font-medium mb-2">Name</label>
                                 <input
                                     type="text"
-                                    id="name"
+                                    name="user_name"
+                                    id="user_name"
+                                    required
                                     className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-primary outline-none transition-all"
                                     placeholder="John Doe"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
+                                <label htmlFor="user_email" className="block text-sm font-medium mb-2">Email</label>
                                 <input
                                     type="email"
-                                    id="email"
+                                    name="user_email"
+                                    id="user_email"
+                                    required
                                     className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-primary outline-none transition-all"
                                     placeholder="john@example.com"
                                 />
@@ -72,7 +104,9 @@ const Contact = () => {
                             <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</label>
                             <input
                                 type="text"
+                                name="subject"
                                 id="subject"
+                                required
                                 className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-primary outline-none transition-all"
                                 placeholder="Project Inquiry"
                             />
@@ -80,17 +114,37 @@ const Contact = () => {
                         <div>
                             <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
                             <textarea
+                                name="message"
                                 id="message"
                                 rows="4"
+                                required
                                 className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-primary outline-none transition-all"
                                 placeholder="Tell me about your project..."
                             ></textarea>
                         </div>
+
+                        {status.message && (
+                            <div className={`p-4 rounded-lg ${status.type === 'success' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
+                                {status.message}
+                            </div>
+                        )}
+
                         <button
                             type="submit"
-                            className="w-full px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-primary/25"
+                            disabled={isSubmitting}
+                            className="w-full px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-primary/25 flex items-center justify-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
-                            Send Message
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 className="animate-spin" size={20} />
+                                    <span>Sending...</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Send size={20} />
+                                    <span>Send Message</span>
+                                </>
+                            )}
                         </button>
                     </form>
                 </div>
