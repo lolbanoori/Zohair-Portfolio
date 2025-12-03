@@ -44,10 +44,31 @@ const About = () => {
 
                         <div className="text-lg text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
                             <p>
-                                I am a <span className="font-bold text-primary">3D Artist</span> and <span className="font-bold text-secondary">VR Developer</span> shaping interactive worlds with a balance of precision and creative intent. My path began in <span className="font-bold text-primary">Blender</span> and expanded into building responsive, real-time VR experiences in <span className="font-bold text-secondary">Unity</span> for the <span className="font-bold text-primary">Meta Quest</span> ecosystem.
+                                I am a <motion.span
+                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(0, 216, 255)" }}
+                                    className="inline-block font-orbitron font-bold text-primary cursor-default"
+                                >3D Artist</motion.span> and <motion.span
+                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 0, 85)" }}
+                                    className="inline-block font-orbitron font-bold text-secondary cursor-default"
+                                >VR Developer</motion.span> shaping interactive worlds with a balance of precision and creative intent. My path began in <motion.span
+                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(0, 216, 255)" }}
+                                    className="inline-block font-orbitron font-bold text-primary cursor-default"
+                                >Blender</motion.span> and expanded into building responsive, real-time VR experiences in <motion.span
+                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 0, 85)" }}
+                                    className="inline-block font-orbitron font-bold text-secondary cursor-default"
+                                >Unity</motion.span> for the <motion.span
+                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 165, 0)" }}
+                                    className="inline-block font-orbitron font-bold text-orange-500 drop-shadow-[0_0_5px_rgba(255,165,0,0.8)] cursor-default"
+                                >Meta Quest</motion.span> ecosystem.
                             </p>
                             <p>
-                                My work blends clean visual design with purposeful interaction systems. I build environments, assets, and mechanics that stay optimized, intuitive, and grounded in real use. My long-term focus is <span className="font-bold text-secondary">AR/VR</span> and the emerging <span className="font-bold text-primary">metaverse</span>—spaces where technical discipline and imaginative design meet.
+                                My work blends clean visual design with purposeful interaction systems. I build environments, assets, and mechanics that stay optimized, intuitive, and grounded in real use. My long-term focus is <motion.span
+                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 0, 85)" }}
+                                    className="inline-block font-orbitron font-bold text-secondary cursor-default"
+                                >AR/VR</motion.span> and the emerging <motion.span
+                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 165, 0)" }}
+                                    className="inline-block font-orbitron font-bold text-orange-500 drop-shadow-[0_0_5px_rgba(255,165,0,0.8)] cursor-default"
+                                >Metaverse</motion.span>—spaces where technical discipline and imaginative design meet.
                             </p>
                             <p>
                                 This portfolio presents the results: self-built projects, iterative prototypes, and complete VR experiences that reflect a consistent approach—clarity, function, and immersive depth.
