@@ -1,4 +1,6 @@
 @echo off
+title Portfolio Website
+cd /d "%~dp0"
 echo Starting Portfolio Website...
 
 :: Check if npm is available
