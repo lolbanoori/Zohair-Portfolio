@@ -37,6 +37,28 @@ const About = () => {
         y.set(0);
     };
 
+    // Neon Flicker Animation Variants
+    const neonFlicker = {
+        initial: { opacity: 1 },
+        animate: {
+            opacity: [1, 0.8, 1, 0.9, 1, 0.4, 1, 0.9, 1],
+            textShadow: [
+                "0 0 5px currentColor",
+                "0 0 10px currentColor",
+                "0 0 5px currentColor",
+                "0 0 20px currentColor",
+                "0 0 5px currentColor"
+            ],
+            transition: {
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                times: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1]
+            }
+        }
+    };
+
     return (
         <section id="about" className="py-20 bg-gray-50 dark:bg-black/50 transition-colors duration-300 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,29 +108,50 @@ const About = () => {
                         <div className="text-lg text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
                             <p>
                                 I am a <motion.span
-                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(0, 216, 255)" }}
+                                    variants={neonFlicker}
+                                    initial="initial"
+                                    animate="animate"
+                                    whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(0, 216, 255)" }}
                                     className="inline-block font-orbitron font-bold text-primary cursor-default"
                                 >3D Artist</motion.span> and <motion.span
-                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 0, 85)" }}
+                                    variants={neonFlicker}
+                                    initial="initial"
+                                    animate="animate"
+                                    whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 0, 85)" }}
                                     className="inline-block font-orbitron font-bold text-secondary cursor-default"
                                 >VR Developer</motion.span> shaping interactive worlds with a balance of precision and creative intent. My path began in <motion.span
-                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(0, 216, 255)" }}
+                                    variants={neonFlicker}
+                                    initial="initial"
+                                    animate="animate"
+                                    whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(0, 216, 255)" }}
                                     className="inline-block font-orbitron font-bold text-primary cursor-default"
                                 >Blender</motion.span> and expanded into building responsive, real-time VR experiences in <motion.span
-                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 0, 85)" }}
+                                    variants={neonFlicker}
+                                    initial="initial"
+                                    animate="animate"
+                                    whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 0, 85)" }}
                                     className="inline-block font-orbitron font-bold text-secondary cursor-default"
                                 >Unity</motion.span> for the <motion.span
-                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 165, 0)" }}
-                                    className="inline-block font-orbitron font-bold text-orange-500 drop-shadow-[0_0_5px_rgba(255,165,0,0.8)] cursor-default"
+                                    variants={neonFlicker}
+                                    initial="initial"
+                                    animate="animate"
+                                    whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 165, 0)" }}
+                                    className="inline-block font-orbitron font-bold text-orange-500 cursor-default"
                                 >Meta Quest</motion.span> ecosystem.
                             </p>
                             <p>
                                 My work blends clean visual design with purposeful interaction systems. I build environments, assets, and mechanics that stay optimized, intuitive, and grounded in real use. My long-term focus is <motion.span
-                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 0, 85)" }}
+                                    variants={neonFlicker}
+                                    initial="initial"
+                                    animate="animate"
+                                    whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 0, 85)" }}
                                     className="inline-block font-orbitron font-bold text-secondary cursor-default"
                                 >AR/VR</motion.span> and the emerging <motion.span
-                                    whileHover={{ y: -5, textShadow: "0 0 8px rgb(255, 165, 0)" }}
-                                    className="inline-block font-orbitron font-bold text-orange-500 drop-shadow-[0_0_5px_rgba(255,165,0,0.8)] cursor-default"
+                                    variants={neonFlicker}
+                                    initial="initial"
+                                    animate="animate"
+                                    whileHover={{ scale: 1.1, textShadow: "0 0 15px rgb(255, 165, 0)" }}
+                                    className="inline-block font-orbitron font-bold text-orange-500 cursor-default"
                                 >Metaverse</motion.span>—spaces where technical discipline and imaginative design meet.
                             </p>
                             <p>
