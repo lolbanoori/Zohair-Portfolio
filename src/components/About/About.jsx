@@ -6,8 +6,8 @@ import profileImage from '../../assets/profile.png';
 const About = () => {
     const skills = [
         "Blender", "Unity 3D", "C# Scripting", "VR Development",
-        "3D Modeling", "Texturing", "Animation", "Shader Graph",
-        "React.js", "Three.js"
+        "3D Modeling", "Texturing", "Animation", "3D Interaction Design",
+        "3D Asset Optimization", "Version Control / Git"
     ];
 
     const x = useMotionValue(0);
@@ -125,8 +125,7 @@ const About = () => {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, delay: index * 0.1 }}
                                         viewport={{ once: true }}
-                                        whileHover={{ scale: 1.05, y: -2 }}
-                                        className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg text-sm font-medium shadow-sm border border-gray-200 dark:border-gray-700 cursor-default hover:border-primary/50 hover:shadow-md transition-all"
+                                        className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg text-sm font-medium shadow-sm border border-gray-200 dark:border-gray-700 cursor-default hover:border-primary hover:text-primary hover:shadow-[0_0_15px_rgba(0,216,255,0.5)] transition-all duration-300"
                                     >
                                         {skill}
                                     </motion.span>
