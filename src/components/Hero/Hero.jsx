@@ -10,15 +10,19 @@ const Hero = () => {
             {/* Text Content */}
             <div className="w-full md:w-1/2 px-6 md:px-12 z-10 flex flex-col justify-center items-start space-y-6">
                 <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                    Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Zohair</span>
+                    Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Zohair Banoori</span>
                 </h1>
                 <h2 className="text-2xl md:text-3xl text-gray-600 dark:text-gray-300">
                     3D Artist & VR Developer
                 </h2>
-                <p className="text-lg text-gray-500 dark:text-gray-400 max-w-lg">
-                    Crafting immersive digital experiences with Blender and Unity.
-                    Turning imagination into interactive reality.
-                </p>
+                <div className="text-lg text-gray-500 dark:text-gray-400 max-w-lg space-y-4">
+                    <p className="font-semibold text-xl text-gray-800 dark:text-gray-200 italic border-l-4 border-primary pl-4">
+                        "Designing the spaces people escape to when reality isn’t enough."
+                    </p>
+                    <p>
+                        I craft immersive digital experiences using Blender and Unity, turning imagination into interactive reality.
+                    </p>
+                </div>
                 <div className="flex space-x-4">
                     <a href="#portfolio" className="px-8 py-3 bg-primary text-white rounded-full font-semibold hover:bg-blue-600 transition-colors shadow-lg shadow-primary/30">
                         View Work

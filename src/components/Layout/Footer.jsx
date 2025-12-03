@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-4 md:mb-0">
                         <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                            Zohair
+                            Zohair Banoori
                         </span>
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                             3D Artist & VR Developer

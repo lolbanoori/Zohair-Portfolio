@@ -44,7 +44,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-16">
                     <div className="flex-shrink-0 cursor-pointer" onClick={() => handleScroll('/')}>
                         <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                            Zohair
+                            Zohair Banoori
                         </span>
                     </div>
 
