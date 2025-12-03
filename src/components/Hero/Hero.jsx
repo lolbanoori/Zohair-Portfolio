@@ -40,7 +40,7 @@ const Hero = () => {
 
             {/* 3D Scene */}
             <div className="w-full md:w-1/2 h-[50vh] md:h-full absolute md:relative top-0 right-0 -z-0 md:z-0 opacity-50 md:opacity-100">
-                <Canvas frameloop={isInView ? "always" : "never"} camera={{ position: [0, 0, 5], fov: 45 }}>
+                <Canvas dpr={[1, 2]} frameloop={isInView ? "always" : "never"} camera={{ position: [0, 0, 5], fov: 45 }}>
                     <Suspense fallback={null}>
                         <ambientLight intensity={0.5} />
                         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
