@@ -1,5 +1,4 @@
-import React from 'react';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin, Youtube, Palette } from 'lucide-react';
 
 const Footer = () => {
     return (
@@ -16,17 +15,17 @@ const Footer = () => {
                     </div>
 
                     <div className="flex space-x-6">
-                        <a href="#" className="text-gray-500 hover:text-primary transition-colors">
+                        <a href="https://github.com/lolbanoori" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors">
                             <Github size={24} />
                         </a>
-                        <a href="#" className="text-gray-500 hover:text-primary transition-colors">
+                        <a href="https://www.linkedin.com/in/lolbanoori/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors">
                             <Linkedin size={24} />
                         </a>
-                        <a href="#" className="text-gray-500 hover:text-primary transition-colors">
-                            <Twitter size={24} />
+                        <a href="https://www.youtube.com/@lolbanoori" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors">
+                            <Youtube size={24} />
                         </a>
-                        <a href="mailto:zohair@example.com" className="text-gray-500 hover:text-primary transition-colors">
-                            <Mail size={24} />
+                        <a href="https://www.artstation.com/lolbanoori" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors">
+                            <Palette size={24} />
                         </a>
                     </div>
                 </div>

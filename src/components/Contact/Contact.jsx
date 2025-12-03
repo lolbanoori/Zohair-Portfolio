@@ -21,7 +21,7 @@ const Contact = () => {
                             </div>
                             <div>
                                 <h3 className="text-xl font-semibold mb-1">Email</h3>
-                                <p className="text-gray-600 dark:text-gray-400">zohair@example.com</p>
+                                <p className="text-gray-600 dark:text-gray-400">banoorizohair@gmail.com</p>
                             </div>
                         </div>
 
@@ -31,7 +31,7 @@ const Contact = () => {
                             </div>
                             <div>
                                 <h3 className="text-xl font-semibold mb-1">Phone</h3>
-                                <p className="text-gray-600 dark:text-gray-400">+1 (555) 123-4567</p>
+                                <p className="text-gray-600 dark:text-gray-400">+92 333 4958166</p>
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@ const Contact = () => {
                             </div>
                             <div>
                                 <h3 className="text-xl font-semibold mb-1">Location</h3>
-                                <p className="text-gray-600 dark:text-gray-400">San Francisco, CA</p>
+                                <p className="text-gray-600 dark:text-gray-400">Islamabad, Pakistan</p>
                             </div>
                         </div>
                     </div>
