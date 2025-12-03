@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Download } from 'lucide-react';
 
 const About = () => {
@@ -9,50 +10,80 @@ const About = () => {
     ];
 
     return (
-        <section id="about" className="py-20 bg-gray-50 dark:bg-black/50 transition-colors duration-300">
+        <section id="about" className="py-20 bg-gray-50 dark:bg-black/50 transition-colors duration-300 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row items-center gap-12">
                     {/* Image/Visual */}
-                    <div className="w-full md:w-1/2">
-                        <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-800 to-black">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className="w-full md:w-1/2"
+                    >
+                        <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-800 to-black group">
                             {/* Placeholder for profile image or 3D avatar */}
-                            <div className="absolute inset-0 flex items-center justify-center text-gray-600 dark:text-gray-400">
+                            <div className="absolute inset-0 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:scale-105 transition-transform duration-500">
                                 <span className="text-lg">Profile Image / 3D Avatar</span>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Content */}
-                    <div className="w-full md:w-1/2 space-y-6">
-                        <h2 className="text-4xl font-bold">About Me</h2>
-                        <p className="text-lg text-gray-600 dark:text-gray-300">
-                            I am a passionate 3D Artist and VR Developer with a knack for creating immersive digital worlds.
-                            With a background in both artistic design and technical development, I bridge the gap between
-                            visual aesthetics and interactive functionality.
-                        </p>
-                        <p className="text-lg text-gray-600 dark:text-gray-300">
-                            My journey started with Blender, modeling simple objects, and evolved into building full-scale
-                            VR experiences in Unity. I love solving complex problems and bringing creative visions to life.
-                        </p>
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        viewport={{ once: true }}
+                        className="w-full md:w-1/2 space-y-6"
+                    >
+                        <h2 className="text-4xl font-bold relative inline-block">
+                            About Me
+                            <span className="absolute bottom-0 left-0 w-full h-1 bg-primary rounded-full transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+                        </h2>
+
+                        <div className="text-lg text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed">
+                            <p>
+                                I am a <span className="font-bold text-primary">3D Artist</span> and <span className="font-bold text-secondary">VR Developer</span> shaping interactive worlds with a balance of precision and creative intent. My path began in <span className="font-bold text-primary">Blender</span> and expanded into building responsive, real-time VR experiences in <span className="font-bold text-secondary">Unity</span> for the <span className="font-bold text-primary">Meta Quest</span> ecosystem.
+                            </p>
+                            <p>
+                                My work blends clean visual design with purposeful interaction systems. I build environments, assets, and mechanics that stay optimized, intuitive, and grounded in real use. My long-term focus is <span className="font-bold text-secondary">AR/VR</span> and the emerging <span className="font-bold text-primary">metaverse</span>—spaces where technical discipline and imaginative design meet.
+                            </p>
+                            <p>
+                                This portfolio presents the results: self-built projects, iterative prototypes, and complete VR experiences that reflect a consistent approach—clarity, function, and immersive depth.
+                            </p>
+                        </div>
 
                         <div>
                             <h3 className="text-xl font-semibold mb-4">Skills & Tools</h3>
                             <div className="flex flex-wrap gap-2">
-                                {skills.map((skill) => (
-                                    <span key={skill} className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg text-sm font-medium shadow-sm border border-gray-200 dark:border-gray-700">
+                                {skills.map((skill, index) => (
+                                    <motion.span
+                                        key={skill}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        viewport={{ once: true }}
+                                        whileHover={{ scale: 1.05, y: -2 }}
+                                        className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg text-sm font-medium shadow-sm border border-gray-200 dark:border-gray-700 cursor-default hover:border-primary/50 hover:shadow-md transition-all"
+                                    >
                                         {skill}
-                                    </span>
+                                    </motion.span>
                                 ))}
                             </div>
                         </div>
 
                         <div className="pt-4">
-                            <button className="flex items-center space-x-2 px-6 py-3 bg-dark dark:bg-light text-light dark:text-dark rounded-full font-semibold hover:opacity-90 transition-opacity">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="flex items-center space-x-2 px-6 py-3 bg-dark dark:bg-light text-light dark:text-dark rounded-full font-semibold hover:shadow-lg hover:shadow-primary/20 transition-all"
+                            >
                                 <Download size={20} />
                                 <span>Download Resume</span>
-                            </button>
+                            </motion.button>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
