@@ -82,7 +82,10 @@ const About = () => {
                         className="w-full md:w-1/2"
                         style={{ perspective: 1000 }}
                     >
-                        <motion.div
+                        <motion.a
+                            href="https://horizon.meta.com/profile/104018922314597/?hwsh=cxZLEoBFc8"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             style={{
                                 rotateX,
                                 rotateY,
@@ -91,7 +94,7 @@ const About = () => {
                             whileHover={{ scale: 1.05 }}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
-                            className="relative aspect-square rounded-2xl shadow-2xl bg-gradient-to-br from-gray-800 to-black overflow-hidden cursor-pointer"
+                            className="relative block aspect-square rounded-2xl shadow-2xl bg-gradient-to-br from-gray-800 to-black overflow-hidden cursor-pointer"
                         >
                             <img
                                 src={profileImage}
@@ -99,7 +102,7 @@ const About = () => {
                                 className="w-full h-full object-cover"
                                 style={{ backfaceVisibility: 'hidden' }}
                             />
-                        </motion.div>
+                        </motion.a>
                     </motion.div>
 
                     {/* Content */}
