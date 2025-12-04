@@ -1,14 +1,23 @@
 import { Github, Linkedin, Youtube, Palette } from 'lucide-react';
+import LogoLight from '../../assets/ZBVR_logo-Light.png';
+import LogoDark from '../../assets/ZBVR_logo-Dark.png';
 
-const Footer = () => {
+const Footer = ({ theme }) => {
     return (
         <footer className="bg-gray-100 dark:bg-black py-8 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-4 md:mb-0">
-                        <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                            Zohair Banoori
-                        </span>
+                        <div className="flex items-center gap-2 mb-2">
+                            <img
+                                src={theme === 'light' ? LogoLight : LogoDark}
+                                alt="ZBVR Logo"
+                                className="h-8 w-auto object-contain"
+                            />
+                            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                                Zohair Banoori
+                            </span>
+                        </div>
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                             3D Artist & VR Developer
                         </p>
