@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
+import LogoLight from '../../assets/ZBVR_logo-Light.png';
+import LogoDark from '../../assets/ZBVR_logo-Dark.png';
 
-const Navbar = () => {
+const Navbar = ({ theme, toggleTheme }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
-
-    useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-        localStorage.setItem('theme', theme);
-    }, [theme]);
-
-    const toggleTheme = () => {
-        setTheme(theme === 'dark' ? 'light' : 'dark');
-    };
 
     const navLinks = [
         { name: 'Home', path: '/' },
@@ -42,7 +30,12 @@ const Navbar = () => {
         <nav className="fixed w-full z-50 bg-light/80 dark:bg-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    <div className="flex-shrink-0 cursor-pointer" onClick={() => handleScroll('/')}>
+                    <div className="flex-shrink-0 cursor-pointer flex items-center gap-2" onClick={() => handleScroll('/')}>
+                        <img
+                            src={theme === 'light' ? LogoLight : LogoDark}
+                            alt="ZBVR Logo"
+                            className="h-10 w-auto object-contain"
+                        />
                         <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                             Zohair Banoori
                         </span>
