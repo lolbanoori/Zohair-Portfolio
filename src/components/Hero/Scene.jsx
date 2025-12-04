@@ -43,18 +43,29 @@ const Scene = () => {
             }
         }
 
-        // 4. Shader Time Update
+        // Calculate animation state once
+        const t = state.clock.elapsedTime * 0.5; // Speed of color cycle
+        const index = Math.floor(t) % COLORS.length;
+        const nextIndex = (index + 1) % COLORS.length;
+        const alpha = t % 1;
+
+        // 4. Shader Time & Color Update (Wireframe)
         if (materialRef.current) {
             materialRef.current.uniforms.uTime.value = timeRef.current;
+
+            // Wireframe is 2 steps ahead
+            const wireIndex = (index + 2) % COLORS.length;
+            const wireNextIndex = (nextIndex + 2) % COLORS.length;
+
+            materialRef.current.uniforms.uColor.value.lerpColors(
+                new THREE.Color(COLORS[wireIndex]),
+                new THREE.Color(COLORS[wireNextIndex]),
+                alpha
+            );
         }
 
-        // 5. Color Shift Animation
+        // 5. Color Shift Animation (Base)
         if (innerMaterialRef.current) {
-            const t = state.clock.elapsedTime * 0.5; // Speed of color cycle
-            const index = Math.floor(t) % COLORS.length;
-            const nextIndex = (index + 1) % COLORS.length;
-            const alpha = t % 1;
-
             innerMaterialRef.current.color.lerpColors(
                 new THREE.Color(COLORS[index]),
                 new THREE.Color(COLORS[nextIndex]),
