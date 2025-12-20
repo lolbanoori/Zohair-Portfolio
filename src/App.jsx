@@ -9,9 +9,12 @@ const About = React.lazy(() => import('./components/About/About'));
 const Contact = React.lazy(() => import('./components/Contact/Contact'));
 const DungeonProps = React.lazy(() => import('./components/DungeonProps/DungeonProps'));
 
+import ScrollToTop from './components/Utils/ScrollToTop';
+
 function App() {
     return (
         <Router basename={import.meta.env.BASE_URL}>
+            <ScrollToTop />
             <LazyMotion features={domAnimation}>
                 <Layout>
                     <Routes>

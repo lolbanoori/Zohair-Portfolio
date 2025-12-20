@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import LogoLight from '../../assets/ZBVR_logo-Light.png';
 import LogoDark from '../../assets/ZBVR_logo-Dark.png';
 
 const Navbar = ({ theme, toggleTheme }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const navLinks = [
         { name: 'Home', path: '/' },
@@ -14,13 +16,34 @@ const Navbar = ({ theme, toggleTheme }) => {
         { name: 'Contact', path: '/#contact' },
     ];
 
-    const handleScroll = (id) => {
+    const handleScroll = (path) => {
         setIsOpen(false);
-        if (id === '/') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // If simply going home
+        if (path === '/') {
+            if (location.pathname !== '/') {
+                navigate('/');
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
             return;
         }
-        const element = document.getElementById(id.replace('/#', ''));
+
+        // Handle section links
+        if (location.pathname !== '/') {
+            // Navigate to home, then hash will be handled by the browser or we can force it
+            // Simple navigation to the root with hash usually works in standard router setup
+            navigate(path);
+
+            // Optional: A small delay to ensure page load before scroll if simple hash nav fails
+            // But usually <Link to="/#id"> works. Here we are using buttons and manual handling.
+            // Since we navigate with hash, browser might handle it.
+            return;
+        }
+
+        // We are already on Home, smooth scroll to section
+        const id = path.replace('/#', '');
+        const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
