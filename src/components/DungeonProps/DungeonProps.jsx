@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from 'framer-motion';
-import { ArrowLeft, Layers, Box, Cpu } from 'lucide-react';
+import { ArrowLeft, Layers, Box, Cpu, CornerRightDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/projects';
 import dummyVideo from '../../assets/dungeon-props/Cinematic Trailer/dummy_video.mp4';
@@ -31,8 +31,8 @@ const categoryImages = {
 // Determine the project data
 const projectData = projects.find(p => p.id === 'dungeon-props');
 
-// Topology Slider now accepts props for images
-const TopologySlider = ({ renderImage, wireframeImage }) => {
+// Topology Slider now accepts props for images, and forwards a ref for scrolling
+const TopologySlider = React.forwardRef(({ renderImage, wireframeImage }, ref) => {
     const [sliderPosition, setSliderPosition] = useState(50);
     const containerRef = useRef(null);
 
@@ -53,7 +53,7 @@ const TopologySlider = ({ renderImage, wireframeImage }) => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto my-20">
+        <div ref={ref} className="w-full max-w-4xl mx-auto my-20 scroll-mt-24">
             <h3 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white flex items-center justify-center gap-2">
                 <Layers className="w-6 h-6 text-primary" />
                 Topology Inspector
@@ -104,7 +104,7 @@ const TopologySlider = ({ renderImage, wireframeImage }) => {
             </p>
         </div>
     );
-};
+});
 
 const ImmersiveShowcase = ({ title, description }) => {
     const containerRef = useRef(null);
@@ -242,6 +242,9 @@ const DungeonProps = () => {
         wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale"
     });
 
+    // Auto-scroll ref
+    const topologyRef = useRef(null);
+
     if (!projectData) return <div>Project Not Found</div>;
 
     const dummyWireframe = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale";
@@ -251,6 +254,11 @@ const DungeonProps = () => {
             render: categoryImages[category] || itemPlaceholder,
             wireframe: dummyWireframe
         });
+
+        // Auto-scroll to topology section
+        if (topologyRef.current) {
+            topologyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     };
 
     return (
@@ -332,11 +340,28 @@ const DungeonProps = () => {
                             </div>
                         </motion.div>
                     ))}
+
+                    {/* VISUAL HINT - Fills empty slot */}
+                    <motion.div
+                        initial={{ opacity: 0, rotate: -10 }}
+                        whileInView={{ opacity: 1, rotate: 6 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                        className="hidden lg:flex flex-col items-center justify-center p-6 text-center transform translate-y-8"
+                    >
+                        <div style={{ fontFamily: '"Patrick Hand", cursive' }} className="text-3xl text-gray-400 dark:text-gray-500 leading-tight">
+                            Click on an <br />
+                            asset to view <br />
+                            it in the <br />
+                            Topology Inspector!
+                        </div>
+                        <CornerRightDown className="w-12 h-12 text-gray-400 dark:text-gray-500 mt-4 animate-bounce" />
+                    </motion.div>
                 </div>
             </div>
 
             {/* Topology Section */}
             <TopologySlider
+                ref={topologyRef}
                 renderImage={activeTopology.render}
                 wireframeImage={activeTopology.wireframe}
             />
