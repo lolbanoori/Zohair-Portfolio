@@ -4,6 +4,8 @@ import { ArrowLeft, Layers, Box, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/projects';
 import dummyVideo from '../../assets/dungeon-props/Cinematic Trailer/dummy_video.mp4';
+import atlasImage from '../../assets/dungeon-props/Atlas_Image.png';
+import chestRender from '../../assets/dungeon-props/Chests/Thumbnail_Chests.png';
 
 // Determine the project data
 const projectData = projects.find(p => p.id === 'dungeon-props');
@@ -42,7 +44,7 @@ const TopologySlider = () => {
             >
                 {/* Image 1: Render (Background) */}
                 <img
-                    src="https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?auto=format&fit=crop&q=80&w=1200"
+                    src={chestRender}
                     alt="Render"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 />
@@ -94,32 +96,45 @@ const ImmersiveShowcase = ({ title, description }) => {
         offset: ["start start", "end end"]
     });
 
-    // --- SCROLL MAPPING ---
-    // 0.0 - 0.25: Transition Phase
-    // Text: Moves UP and Scales DOWN.
-    // Atlas: Fades to low opacity (background).
-    // Video: Moves UP, Scales UP, Fades IN.
+    // --- SCROLL ANIMATION CHOREOGRAPHY ---
 
-    // 0.25 - 0.9: Scrubbing Phase
+    // Phases:
+    // 0.0 - 0.2:  Text moves to park position (Middle-Top). Atlas stays 100%. Video hidden.
+    // 0.2 - 0.35: Text waits. Video rises and fades in. Atlas begins fade out.
+    // 0.35- 0.45: "THE PUSH": Video rises to final spot, pushing Text out/up.
+    // 0.45- 0.9:  Video Scrubbing.
 
-    // Text Transforms
-    const textY = useTransform(scrollYProgress, [0, 0.25], [0, -300]); // Moves up
-    const textScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.7]); // Scales down
-    const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]); // Fades out partially
+    // 1. TEXT TRANSFORMS
+    // Moves up to -25vh by 0.2, STAYS there until 0.35, then moves gently to -60vh by 0.45 (Smooth Push)
+    // Adjusted to -25vh to prevent overlap with top nav bar
+    const textY = useTransform(scrollYProgress,
+        [0, 0.2, 0.35, 0.45],
+        ['0vh', '-25vh', '-25vh', '-60vh']
+    );
+    // Scales down a bit then holds
+    const textScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+    // Stays visible until the push starts, then fades out as it's being pushed
+    const textOpacity = useTransform(scrollYProgress, [0, 0.35, 0.45], [1, 1, 0]);
 
-    // Atlas Transforms (Background)
-    const atlasOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0.15]); // Fades to 15% but stays visible
+    // 2. ATLAS TRANSFORMS
+    // Stays 100% until 0.2 (when video starts arriving), then dims
+    const atlasOpacity = useTransform(scrollYProgress, [0, 0.2, 0.35], [1, 1, 0.15]);
 
-    // Video Transforms
-    const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.8, 1]);
-    const videoOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-    const videoY = useTransform(scrollYProgress, [0, 0.25], [200, 0]); // Comes up from bottom
+    // 3. VIDEO TRANSFORMS
+    // Comes alive at 0.2. Rises from bottom.
+    // At 0.35 it's just below text. By 0.45 it's at center (0).
+    const videoY = useTransform(scrollYProgress,
+        [0, 0.2, 0.35, 0.45],
+        ['30vh', '30vh', '10vh', '0vh']
+    );
+    const videoOpacity = useTransform(scrollYProgress, [0, 0.2, 0.35], [0, 0, 1]); // Fade in 20-35%
+    const videoScale = useTransform(scrollYProgress, [0, 0.45], [0.85, 1]); // Subtle growth
 
-    // Video Scrubbing Logic
+    // 4. SCRUBBING LOGIC
     useMotionValueEvent(scrollYProgress, "change", (latest) => {
         if (!videoRef.current || isNaN(videoRef.current.duration)) return;
 
-        const scrubStart = 0.25;
+        const scrubStart = 0.45;
         const scrubEnd = 0.9;
 
         if (latest >= scrubStart && latest <= scrubEnd) {
@@ -136,22 +151,22 @@ const ImmersiveShowcase = ({ title, description }) => {
         <div ref={containerRef} className="h-[400vh] relative mb-24">
             <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
 
-                {/* LAYER 1: ATLAS BACKGROUND - FIXED */}
+                {/* LAYER 1: ATLAS BACKGROUND */}
                 <motion.div
                     style={{ opacity: atlasOpacity }}
                     className="absolute inset-0 z-0"
                 >
                     <div className="absolute inset-0 bg-black/40 z-10" />
                     <img
-                        src="https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?auto=format&fit=crop&q=80&w=1920"
+                        src={atlasImage}
                         alt="Dungeon Props Atlas"
                         className="w-full h-full object-cover"
                     />
                 </motion.div>
 
-                {/* LAYER 2: HERO TEXT - MOVES UP */}
+                {/* LAYER 2: HERO TEXT - PARK & PUSH */}
                 <motion.div
-                    style={{ y: textY, scale: textScale }}
+                    style={{ y: textY, scale: textScale, opacity: textOpacity }}
                     className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
                 >
                     <div className="text-center px-4 max-w-4xl mx-auto">
@@ -162,7 +177,7 @@ const ImmersiveShowcase = ({ title, description }) => {
                             {description}
                         </p>
                         <motion.div
-                            style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }} // Hide scroll hint quickly
+                            style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
                             className="mt-12 animate-bounce text-white/50 text-sm font-light tracking-widest uppercase"
                         >
                             Scroll to Explore
@@ -170,7 +185,7 @@ const ImmersiveShowcase = ({ title, description }) => {
                     </div>
                 </motion.div>
 
-                {/* LAYER 3: VIDEO OVERLAY - COMES UP */}
+                {/* LAYER 3: VIDEO OVERLAY */}
                 <motion.div
                     style={{ opacity: videoOpacity, scale: videoScale, y: videoY }}
                     className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center" // Centered video
@@ -184,10 +199,10 @@ const ImmersiveShowcase = ({ title, description }) => {
                             playsInline
                             src={dummyVideo}
                         />
-                        {/* Label for 'Flythrough Mode' */}
+                        {/* Label */}
                         <div className="absolute bottom-10 left-0 right-0 text-center z-40">
                             <motion.p
-                                style={{ opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.85, 0.9], [0, 1, 1, 0]) }}
+                                style={{ opacity: useTransform(scrollYProgress, [0.45, 0.5, 0.85, 0.9], [0, 1, 1, 0]) }}
                                 className="text-white/70 text-sm font-light tracking-widest uppercase bg-black/30 backdrop-blur-sm inline-block px-4 py-2 rounded-full"
                             >
                                 Flythrough Trailer

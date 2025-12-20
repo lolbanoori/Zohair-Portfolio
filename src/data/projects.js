@@ -1,10 +1,13 @@
+// Import Images
+import dungeonThumbnail from '../assets/dungeon-props/Thumbnail_Image_.png';
+
 export const projects = [
     {
         id: "dungeon-props",
         title: "Dungeon Props - Complete Asset Pack",
         description: "Complete pack of dungeon props for real-time applications and VR/AR projects. Each asset is fully game-ready, optimized for Unity, Unreal, and XR platforms.",
         type: "Blender",
-        image: "https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?auto=format&fit=crop&q=80&w=800", // Placeholder
+        image: dungeonThumbnail,
         tools: ["Blender"],
         demoLink: "/projects/dungeon-props",
         isInternalLink: true,
