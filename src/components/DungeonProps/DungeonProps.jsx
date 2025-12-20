@@ -7,6 +7,27 @@ import dummyVideo from '../../assets/dungeon-props/Cinematic Trailer/dummy_video
 import atlasImage from '../../assets/dungeon-props/Atlas_Image.png';
 import chestRender from '../../assets/dungeon-props/Chests/Thumbnail_Chests.png';
 
+// --- NEW ASSET IMPORTS ---
+import thumbTable from '../../assets/dungeon-props/Table & Chairs/Thumbnail_Table & Chairs.png';
+import thumbBarrels from '../../assets/dungeon-props/Barrels & Crates/Thumbnail_Barrels & Crates.png';
+import thumbChests from '../../assets/dungeon-props/Chests/Thumbnail_Chests.png';
+import thumbScrolls from '../../assets/dungeon-props/Scrolls/Thumbnail_Scrolls.png';
+import thumbBooks from '../../assets/dungeon-props/Books/Thumbnail_Books.png';
+import thumbTreasure from '../../assets/dungeon-props/Treasure/Thumbnail_Treasure.png';
+import thumbUtensils from '../../assets/dungeon-props/Utensils/Thumbnail_Utensils.png';
+import itemPlaceholder from '../../assets/dungeon-props/Thumbnail_Image_.png';
+
+// Category Image Mapping
+const categoryImages = {
+    "Tables & Chairs": thumbTable,
+    "Barrels & Crates": thumbBarrels,
+    "Chests": thumbChests,
+    "Scrolls": thumbScrolls,
+    "Books": thumbBooks,
+    "Treasure": thumbTreasure,
+    "Utensils": thumbUtensils
+};
+
 // Determine the project data
 const projectData = projects.find(p => p.id === 'dungeon-props');
 
@@ -253,19 +274,47 @@ const DungeonProps = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
-                            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-shadow"
+                            className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-shadow group"
                         >
-                            <h3 className="text-xl font-bold text-primary mb-4 pb-2 border-b border-gray-100 dark:border-gray-700">
-                                {feature.category}
-                            </h3>
-                            <ul className="space-y-2">
-                                {feature.items.map((item, i) => (
-                                    <li key={i} className="flex items-center text-gray-600 dark:text-gray-300 text-sm">
-                                        <div className="w-1.5 h-1.5 bg-primary/40 rounded-full mr-2"></div>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                            {/* Category Thumbnail Header */}
+                            <div className="h-48 overflow-hidden relative">
+                                <img
+                                    src={categoryImages[feature.category] || itemPlaceholder}
+                                    alt={feature.category}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                                    <h3 className="text-xl font-bold text-white">
+                                        {feature.category}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <div className="p-6">
+                                <ul className="space-y-3">
+                                    {feature.items.map((item, i) => (
+                                        <li
+                                            key={i}
+                                            className="relative group/item flex items-center text-gray-600 dark:text-gray-300 text-sm cursor-pointer"
+                                        >
+                                            <div className="w-1.5 h-1.5 bg-primary/40 rounded-full mr-2 group-hover/item:bg-primary transition-colors"></div>
+                                            <span className="group-hover/item:text-primary transition-colors">{item}</span>
+
+                                            {/* Hover Popup */}
+                                            <div className="absolute left-[60%] bottom-full mb-2 w-80 aspect-video bg-gray-900 rounded-lg border border-gray-700 shadow-xl overflow-hidden opacity-0 translate-y-2 group-hover/item:opacity-100 group-hover/item:translate-y-0 transition-all duration-200 pointer-events-none z-50">
+                                                <img
+                                                    src={itemPlaceholder}
+                                                    alt={item}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-1 text-center">
+                                                    <span className="text-xs text-white font-medium">Placeholder</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
