@@ -6,7 +6,7 @@
 ![Three.js](https://img.shields.io/badge/Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
 
 **Website is Live:** [zohair-banoori-portfolio.vercel.app](https://zohair-banoori-portfolio.vercel.app)
-![Portfolio Preview](./src/assets/demo.gif)
+![Portfolio Preview](./src/assets/Website-Demo.gif)
 
 My personal portfolio website showcasing my 3D art and VR development projects. This site uses a **Hybrid Architecture** to balance immersive 3D visuals with raw performance.
 
