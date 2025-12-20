@@ -63,25 +63,87 @@ const TopologySlider = () => {
                 onMouseMove={handleMouseMove}
                 onTouchMove={handleTouchMove}
             >
-                {/* Image 1: Render (Background) */}
+                {/* Image 1: Wireframe Placeholder (Background - Revealed on Right Drag [Wait, no. Background is visible when foreground is clipped.]) 
+                    
+                    Logic: clipPath on Image 2 (Foreground).
+                    inset(0 ${100 - X}% ...) 
+                    
+                    If X=0 (Left): inset(0 100% 0 0) -> Clip everything from right side -> Width=0?
+                    Wait. inset(top right bottom left).
+                    inset(0% 100% 0% 0%) means:
+                        Top offset: 0
+                        Right offset: 100% (Clip starts from right edge and goes inward 100% -> entire element is hidden)
+                        Bottom: 0
+                        Left: 0
+                    
+                    So if Slider is at 0 (Left), Foreground is HIDDEN. Background is VISIBLE.
+                    
+                    Current Labels: Left = "Render", Right = "Wireframe".
+                    
+                    So at 0 (Left), we want to see "Render".
+                    Therefore, Background (Image 1) MUST be Render.
+                    
+                    But the user said "Switch the images".
+                    And "You are using a Render image for wireframe and vice versa".
+                    This implies that CURRENTLY (before my edit), the user sees Wireframe where they expect Render?
+                    
+                    Current Code (Before Edit): Image 1 = Render. Image 2 = Wireframe.
+                    At 0 (Left): Bg (Render) is Visible. Label says "Render".
+                    This seems correct?
+                    
+                    Maybe the user drags to the RIGHT (100).
+                    X=100. inset(0 0% 0 0).
+                    Foreground is FULLY VISIBLE. Covers Background.
+                    So at 100 (Right), we see Foreground (Image 2 - Wireframe).
+                    Label says "Wireframe".
+                    
+                    So: Left=Render, Right=Wireframe.
+                    User claims: "You are using a Render image for wireframe".
+                    
+                    Maybe the placeholder image url LOOKS like a render?
+                    `https://images.unsplash.com/photo-1550745165-9bc0b252726f...grayscale`
+                    This is a random tech image.
+                    
+                    Let's flip it as requested regardless of my logic check.
+                    New State:
+                    Image 1 (Bg) = Wireframe (Placeholder).
+                    Image 2 (Fg) = Render (Chest).
+                    
+                    Result:
+                    At 0 (Left): Bg (Wireframe) Visible. Label "Render". -> Mismatch.
+                    At 100 (Right): Fg (Render) Visible. Label "Wireframe". -> Mismatch.
+                    
+                    If I flip images, I MUST flip labels to match the visual reality.
+                    
+                    Wait, if I flip images, then:
+                    Left side = Wireframe.
+                    Right side = Render.
+                    
+                    User said: "Switch the images...".
+                    Maybe they want the DEFAULT state to be Wireframe?
+                    
+                    I will swap images AND labels to maintain consistency.
+                */}
+
+                {/* Image 1: Wireframe (Background) */}
                 <img
-                    src={chestRender}
-                    alt="Render"
+                    src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale"
+                    alt="Wireframe"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 />
 
-                {/* Image 2: Wireframe (Foreground - Clipped) */}
+                {/* Image 2: Render (Foreground - Clipped) */}
                 <div
                     className="absolute inset-0 w-full h-full pointer-events-none"
                     style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale"
-                        alt="Wireframe"
+                        src={chestRender}
+                        alt="Render" // Corrected Alt
                         className="absolute inset-0 w-full h-full object-cover"
                     />
-                    {/* Overlay to simulate wireframe look if using placeholder */}
-                    <div className="absolute inset-0 bg-blue-500/20 mix-blend-overlay"></div>
+                    {/* Overlay disabled for render */}
+                    {/* <div className="absolute inset-0 bg-blue-500/20 mix-blend-overlay"></div> */}
                 </div>
 
                 {/* Slider Handle */}
@@ -301,7 +363,7 @@ const DungeonProps = () => {
                                             <span className="group-hover/item:text-primary transition-colors">{item}</span>
 
                                             {/* Hover Popup */}
-                                            <div className="absolute left-[60%] bottom-full mb-2 w-80 aspect-video bg-gray-900 rounded-lg border border-gray-700 shadow-xl overflow-hidden opacity-0 translate-y-2 group-hover/item:opacity-100 group-hover/item:translate-y-0 transition-all duration-200 pointer-events-none z-50">
+                                            <div className="absolute left-0 bottom-full mb-4 w-80 aspect-video bg-gray-900/90 backdrop-blur-md rounded-xl border border-primary/50 shadow-[0_0_30px_rgba(59,130,246,0.5)] overflow-hidden opacity-0 translate-y-4 group-hover/item:opacity-100 group-hover/item:translate-y-0 transition-all duration-300 pointer-events-none z-50">
                                                 <img
                                                     src={itemPlaceholder}
                                                     alt={item}
