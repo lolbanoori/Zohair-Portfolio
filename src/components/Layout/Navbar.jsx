@@ -29,7 +29,8 @@ const Navbar = ({ theme, toggleTheme }) => {
     return (
         <nav className="fixed w-full z-50 bg-light/80 dark:bg-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+                <div className="relative flex items-center justify-between h-16">
+                    {/* Logo Section */}
                     <div className="flex-shrink-0 cursor-pointer flex items-center gap-2" onClick={() => handleScroll('/')}>
                         <img
                             src={theme === 'light' ? LogoLight : LogoDark}
@@ -41,27 +42,31 @@ const Navbar = ({ theme, toggleTheme }) => {
                         </span>
                     </div>
 
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-4">
-                            {navLinks.map((link) => (
-                                <button
-                                    key={link.name}
-                                    onClick={() => handleScroll(link.path)}
-                                    className="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                                >
-                                    {link.name}
-                                </button>
-                            ))}
+                    {/* Desktop Navigation - Centered */}
+                    <div className="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center space-x-8">
+                        {navLinks.map((link) => (
                             <button
-                                onClick={toggleTheme}
-                                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                                aria-label="Toggle Theme"
+                                key={link.name}
+                                onClick={() => handleScroll(link.path)}
+                                className="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
                             >
-                                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                                {link.name}
                             </button>
-                        </div>
+                        ))}
                     </div>
 
+                    {/* Desktop Theme Toggle - Right Aligned */}
+                    <div className="hidden md:flex items-center">
+                        <button
+                            onClick={toggleTheme}
+                            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                            aria-label="Toggle Theme"
+                        >
+                            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                        </button>
+                    </div>
+
+                    {/* Mobile Controls */}
                     <div className="md:hidden flex items-center">
                         <button
                             onClick={toggleTheme}
