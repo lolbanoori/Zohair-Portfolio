@@ -31,7 +31,8 @@ const categoryImages = {
 // Determine the project data
 const projectData = projects.find(p => p.id === 'dungeon-props');
 
-const TopologySlider = () => {
+// Topology Slider now accepts props for images
+const TopologySlider = ({ renderImage, wireframeImage }) => {
     const [sliderPosition, setSliderPosition] = useState(50);
     const containerRef = useRef(null);
 
@@ -63,87 +64,23 @@ const TopologySlider = () => {
                 onMouseMove={handleMouseMove}
                 onTouchMove={handleTouchMove}
             >
-                {/* Image 1: Wireframe Placeholder (Background - Revealed on Right Drag [Wait, no. Background is visible when foreground is clipped.]) 
-                    
-                    Logic: clipPath on Image 2 (Foreground).
-                    inset(0 ${100 - X}% ...) 
-                    
-                    If X=0 (Left): inset(0 100% 0 0) -> Clip everything from right side -> Width=0?
-                    Wait. inset(top right bottom left).
-                    inset(0% 100% 0% 0%) means:
-                        Top offset: 0
-                        Right offset: 100% (Clip starts from right edge and goes inward 100% -> entire element is hidden)
-                        Bottom: 0
-                        Left: 0
-                    
-                    So if Slider is at 0 (Left), Foreground is HIDDEN. Background is VISIBLE.
-                    
-                    Current Labels: Left = "Render", Right = "Wireframe".
-                    
-                    So at 0 (Left), we want to see "Render".
-                    Therefore, Background (Image 1) MUST be Render.
-                    
-                    But the user said "Switch the images".
-                    And "You are using a Render image for wireframe and vice versa".
-                    This implies that CURRENTLY (before my edit), the user sees Wireframe where they expect Render?
-                    
-                    Current Code (Before Edit): Image 1 = Render. Image 2 = Wireframe.
-                    At 0 (Left): Bg (Render) is Visible. Label says "Render".
-                    This seems correct?
-                    
-                    Maybe the user drags to the RIGHT (100).
-                    X=100. inset(0 0% 0 0).
-                    Foreground is FULLY VISIBLE. Covers Background.
-                    So at 100 (Right), we see Foreground (Image 2 - Wireframe).
-                    Label says "Wireframe".
-                    
-                    So: Left=Render, Right=Wireframe.
-                    User claims: "You are using a Render image for wireframe".
-                    
-                    Maybe the placeholder image url LOOKS like a render?
-                    `https://images.unsplash.com/photo-1550745165-9bc0b252726f...grayscale`
-                    This is a random tech image.
-                    
-                    Let's flip it as requested regardless of my logic check.
-                    New State:
-                    Image 1 (Bg) = Wireframe (Placeholder).
-                    Image 2 (Fg) = Render (Chest).
-                    
-                    Result:
-                    At 0 (Left): Bg (Wireframe) Visible. Label "Render". -> Mismatch.
-                    At 100 (Right): Fg (Render) Visible. Label "Wireframe". -> Mismatch.
-                    
-                    If I flip images, I MUST flip labels to match the visual reality.
-                    
-                    Wait, if I flip images, then:
-                    Left side = Wireframe.
-                    Right side = Render.
-                    
-                    User said: "Switch the images...".
-                    Maybe they want the DEFAULT state to be Wireframe?
-                    
-                    I will swap images AND labels to maintain consistency.
-                */}
-
-                {/* Image 1: Wireframe (Background) */}
+                {/* Image 1: Wireframe (Background - Left Side Reveal) */}
                 <img
-                    src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale"
+                    src={wireframeImage}
                     alt="Wireframe"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 />
 
-                {/* Image 2: Render (Foreground - Clipped) */}
+                {/* Image 2: Render (Foreground - Clipped - Right Side Reveal) */}
                 <div
                     className="absolute inset-0 w-full h-full pointer-events-none"
                     style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
                 >
                     <img
-                        src={chestRender}
-                        alt="Render" // Corrected Alt
+                        src={renderImage}
+                        alt="Render"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
-                    {/* Overlay disabled for render */}
-                    {/* <div className="absolute inset-0 bg-blue-500/20 mix-blend-overlay"></div> */}
                 </div>
 
                 {/* Slider Handle */}
@@ -299,7 +236,22 @@ const ImmersiveShowcase = ({ title, description }) => {
 };
 
 const DungeonProps = () => {
+    // Interactive State for Topology Slider
+    const [activeTopology, setActiveTopology] = useState({
+        render: thumbChests,
+        wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale"
+    });
+
     if (!projectData) return <div>Project Not Found</div>;
+
+    const dummyWireframe = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale";
+
+    const handleAssetClick = (category) => {
+        setActiveTopology({
+            render: categoryImages[category] || itemPlaceholder,
+            wireframe: dummyWireframe
+        });
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-0">
@@ -357,6 +309,7 @@ const DungeonProps = () => {
                                     {feature.items.map((item, i) => (
                                         <li
                                             key={i}
+                                            onClick={() => handleAssetClick(feature.category)}
                                             className="relative group/item flex items-center text-gray-600 dark:text-gray-300 text-sm cursor-pointer"
                                         >
                                             <div className="w-1.5 h-1.5 bg-primary/40 rounded-full mr-2 group-hover/item:bg-primary transition-colors"></div>
@@ -383,7 +336,10 @@ const DungeonProps = () => {
             </div>
 
             {/* Topology Section */}
-            <TopologySlider />
+            <TopologySlider
+                renderImage={activeTopology.render}
+                wireframeImage={activeTopology.wireframe}
+            />
 
             {/* Technical Specs / Footer */}
             <div className="bg-white dark:bg-gray-800 py-16 mt-12 border-t border-gray-200 dark:border-gray-700">
