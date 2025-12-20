@@ -7,6 +7,7 @@ import Hero from './components/Hero/Hero';
 const Portfolio = React.lazy(() => import('./components/Portfolio/Portfolio'));
 const About = React.lazy(() => import('./components/About/About'));
 const Contact = React.lazy(() => import('./components/Contact/Contact'));
+const DungeonProps = React.lazy(() => import('./components/DungeonProps/DungeonProps'));
 
 function App() {
     return (
@@ -23,6 +24,11 @@ function App() {
                                     <Contact />
                                 </React.Suspense>
                             </>
+                        } />
+                        <Route path="/projects/dungeon-props" element={
+                            <React.Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+                                <DungeonProps />
+                            </React.Suspense>
                         } />
                         {/* Add more routes if needed for standalone pages */}
                     </Routes>

@@ -69,15 +69,31 @@ const ProjectModal = ({ project, onClose }) => {
                         </div>
 
                         <div className="flex space-x-4">
-                            <a
-                                href={project.demoLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
-                            >
-                                <ExternalLink size={20} />
-                                <span>Live Demo</span>
-                            </a>
+                            {project.isInternalLink ? (
+                                <a
+                                    href={project.demoLink}
+                                    className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+                                    onClick={(e) => {
+                                        // Allow default navigation for internal links if we want a full page load, 
+                                        // OR use react-router's useNavigate if we want SPA transition. 
+                                        // Since we used href above, let's treat it as a normal link but let's actually use React Router's Link or just href for simplicity if Router is wrapping it.
+                                        // Actually, to use 'framer-motion' exit animations properly, we might want to just let it handle the URL change.
+                                    }}
+                                >
+                                    <ExternalLink size={20} />
+                                    <span>Dive In</span>
+                                </a>
+                            ) : (
+                                <a
+                                    href={project.demoLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+                                >
+                                    <ExternalLink size={20} />
+                                    <span>Live Demo</span>
+                                </a>
+                            )}
                             <a
                                 href="#"
                                 className="flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"

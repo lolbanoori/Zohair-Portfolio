@@ -1,5 +1,25 @@
 export const projects = [
     {
+        id: "dungeon-props",
+        title: "Dungeon Props - Complete Asset Pack",
+        description: "Complete pack of dungeon props for real-time applications and VR/AR projects. Each asset is fully game-ready, optimized for Unity, Unreal, and XR platforms.",
+        type: "Blender",
+        image: "https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?auto=format&fit=crop&q=80&w=800", // Placeholder
+        tools: ["Blender"],
+        demoLink: "/projects/dungeon-props",
+        isInternalLink: true,
+        modelUrl: null,
+        features: [
+            { category: "Tables & Chairs", items: ["Table", "Chair", "Stool", "Bench"] },
+            { category: "Barrels & Crates", items: ["Barrel", "Bucket (Water)", "Large Crate", "Small Crate"] },
+            { category: "Chests", items: ["Large Chest", "Jewellery Chest"] },
+            { category: "Scrolls", items: ["Large", "Small", "Sealed", "Parchment"] },
+            { category: "Books", items: ["6 Variations", "Book Stack"] },
+            { category: "Treasure", items: ["Gold Piles", "Coins", "Silver Plate", "Goblets (Simple/Ruby)", "Gems (Diamond, Sapphire, Opal)", "Necklace"] },
+            { category: "Utensils", items: ["Mugs", "Jug", "Bowl", "Spoon"] }
+        ]
+    },
+    {
         id: 1,
         title: "Cyberpunk City",
         description: "A futuristic city environment created in Blender with procedural textures and volumetric lighting.",
