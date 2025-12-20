@@ -84,60 +84,115 @@ const TopologySlider = () => {
     );
 };
 
-const ScrollVideo = () => {
+const ImmersiveShowcase = ({ title, description }) => {
     const containerRef = useRef(null);
     const videoRef = useRef(null);
 
+    // Create a taller scroll track to accommodate the sequence
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"]
     });
 
-    // Phase 1: Scale & Fade In (0% - 20% of scroll)
-    const scale = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
-    const opacity = useTransform(scrollYProgress, [0, 0.1], [0.5, 1]);
+    // --- SCROLL MAPPING ---
+    // 0.0 - 0.25: Transition Phase
+    // Text: Moves UP and Scales DOWN.
+    // Atlas: Fades to low opacity (background).
+    // Video: Moves UP, Scales UP, Fades IN.
 
-    // Phase 2: Play Video (20% - 90% of scroll)
-    // We map scroll range 0.2-0.9 to video duration 0-1 (normalized)
+    // 0.25 - 0.9: Scrubbing Phase
+
+    // Text Transforms
+    const textY = useTransform(scrollYProgress, [0, 0.25], [0, -300]); // Moves up
+    const textScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.7]); // Scales down
+    const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]); // Fades out partially
+
+    // Atlas Transforms (Background)
+    const atlasOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0.15]); // Fades to 15% but stays visible
+
+    // Video Transforms
+    const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.8, 1]);
+    const videoOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
+    const videoY = useTransform(scrollYProgress, [0, 0.25], [200, 0]); // Comes up from bottom
+
+    // Video Scrubbing Logic
     useMotionValueEvent(scrollYProgress, "change", (latest) => {
         if (!videoRef.current || isNaN(videoRef.current.duration)) return;
 
-        const videoStart = 0.2;
-        const videoEnd = 0.9;
+        const scrubStart = 0.25;
+        const scrubEnd = 0.9;
 
-        if (latest >= videoStart && latest <= videoEnd) {
-            const progress = (latest - videoStart) / (videoEnd - videoStart);
+        if (latest >= scrubStart && latest <= scrubEnd) {
+            const progress = (latest - scrubStart) / (scrubEnd - scrubStart);
             videoRef.current.currentTime = progress * videoRef.current.duration;
-        } else if (latest < videoStart) {
+        } else if (latest < scrubStart) {
             videoRef.current.currentTime = 0;
-        } else if (latest > videoEnd) {
+        } else if (latest > scrubEnd) {
             videoRef.current.currentTime = videoRef.current.duration;
         }
     });
 
     return (
-        <div ref={containerRef} className="h-[300vh] relative">
-            <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-black">
+        <div ref={containerRef} className="h-[400vh] relative mb-24">
+            <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
+
+                {/* LAYER 1: ATLAS BACKGROUND - FIXED */}
                 <motion.div
-                    style={{ scale, opacity }}
-                    className="w-full h-full relative"
+                    style={{ opacity: atlasOpacity }}
+                    className="absolute inset-0 z-0"
                 >
-                    <video
-                        ref={videoRef}
+                    <div className="absolute inset-0 bg-black/40 z-10" />
+                    <img
+                        src="https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?auto=format&fit=crop&q=80&w=1920"
+                        alt="Dungeon Props Atlas"
                         className="w-full h-full object-cover"
-                        preload="auto"
-                        muted
-                        playsInline
-                        // Use a placeholder video for now that's long enough to scrub
-                        src={dummyVideo}
                     />
-                    <div className="absolute bottom-10 left-0 right-0 text-center pointer-events-none z-10">
-                        <motion.p
-                            style={{ opacity: useTransform(scrollYProgress, [0.1, 0.2, 0.8, 0.9], [1, 0, 0, 1]) }}
-                            className="text-white/50 text-sm font-light tracking-widest uppercase"
+                </motion.div>
+
+                {/* LAYER 2: HERO TEXT - MOVES UP */}
+                <motion.div
+                    style={{ y: textY, scale: textScale }}
+                    className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
+                >
+                    <div className="text-center px-4 max-w-4xl mx-auto">
+                        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white text-shadow-lg shadow-black/50 drop-shadow-2xl">
+                            {title}
+                        </h1>
+                        <p className="text-xl text-gray-200 max-w-2xl mx-auto drop-shadow-md">
+                            {description}
+                        </p>
+                        <motion.div
+                            style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }} // Hide scroll hint quickly
+                            className="mt-12 animate-bounce text-white/50 text-sm font-light tracking-widest uppercase"
                         >
                             Scroll to Explore
-                        </motion.p>
+                        </motion.div>
+                    </div>
+                </motion.div>
+
+                {/* LAYER 3: VIDEO OVERLAY - COMES UP */}
+                <motion.div
+                    style={{ opacity: videoOpacity, scale: videoScale, y: videoY }}
+                    className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center" // Centered video
+                >
+                    <div className="w-[90%] h-[80%] relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/20">
+                        <video
+                            ref={videoRef}
+                            className="w-full h-full object-cover"
+                            preload="auto"
+                            muted
+                            playsInline
+                            src={dummyVideo}
+                        />
+                        {/* Label for 'Flythrough Mode' */}
+                        <div className="absolute bottom-10 left-0 right-0 text-center z-40">
+                            <motion.p
+                                style={{ opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.85, 0.9], [0, 1, 1, 0]) }}
+                                className="text-white/70 text-sm font-light tracking-widest uppercase bg-black/30 backdrop-blur-sm inline-block px-4 py-2 rounded-full"
+                            >
+                                Flythrough Trailer
+                            </motion.p>
+                        </div>
                     </div>
                 </motion.div>
             </div>
@@ -146,54 +201,25 @@ const ScrollVideo = () => {
 };
 
 const DungeonProps = () => {
-    const { scrollYProgress } = useScroll();
-    const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 200]);
-    const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-
     if (!projectData) return <div>Project Not Found</div>;
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-0">
             {/* Navigation */}
-            <div className="fixed top-24 left-4 z-50">
-                <Link to="/" className="p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl transition-all block text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 group">
+            <div className="fixed top-8 left-4 z-50">
+                <Link to="/" className="p-3 bg-white/10 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl transition-all block text-white border border-white/20 group">
                     <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
                 </Link>
             </div>
 
-            {/* Hero Section */}
-            <div className="relative h-[60vh] md:h-[80vh] overflow-hidden flex items-center justify-center">
-                <motion.div
-                    style={{ y: heroY }}
-                    className="absolute inset-0 z-0"
-                >
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-900 z-10" />
-                    <img
-                        src="https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?auto=format&fit=crop&q=80&w=1920"
-                        alt="Dungeon Props Atlas"
-                        className="w-full h-full object-cover"
-                    />
-                </motion.div>
-
-                <motion.div
-                    style={{ opacity }}
-                    className="relative z-20 text-center px-4 max-w-4xl mx-auto"
-                >
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white text-shadow-lg shadow-black/50 drop-shadow-2xl">
-                        {projectData.title}
-                    </h1>
-                    <p className="text-xl text-gray-200 max-w-2xl mx-auto drop-shadow-md">
-                        {projectData.description}
-                    </p>
-                </motion.div>
-            </div>
-
-            {/* Cinema Video Section */}
-            {/* Scroll-Driven Cinema Section */}
-            <ScrollVideo />
+            {/* Immersive Showcase (Replaces Hero + Cinema Section) */}
+            <ImmersiveShowcase
+                title={projectData.title}
+                description={projectData.description}
+            />
 
             {/* Asset Taxonomy Grid */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 relative z-10 bg-gray-50 dark:bg-gray-900 pt-12">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-2">
                         <Box className="w-8 h-8 text-primary" />
