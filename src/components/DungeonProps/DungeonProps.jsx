@@ -31,17 +31,22 @@ const categoryImages = {
 // Determine the project data
 const projectData = projects.find(p => p.id === 'dungeon-props');
 
-// Topology Slider now accepts props for images, and forwards a ref for scrolling
+// Topology Slider: Optimized with useMotionValue (No React Re-renders on Drag)
 const TopologySlider = React.forwardRef(({ renderImage, wireframeImage }, ref) => {
-    const [sliderPosition, setSliderPosition] = useState(50);
+    // Use MotionValue instead of useState for high-performance updates
+    const sliderPosition = useMotionValue(50);
     const containerRef = useRef(null);
+
+    // Create derivative values for styles
+    const clipPath = useTransform(sliderPosition, (v) => `inset(0 ${100 - v}% 0 0)`);
+    const sliderLeft = useTransform(sliderPosition, (v) => `${v}%`);
 
     const handleMouseMove = (e) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
         const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
         const percentage = (x / rect.width) * 100;
-        setSliderPosition(percentage);
+        sliderPosition.set(percentage); // Direct update, no react render
     };
 
     const handleTouchMove = (e) => {
@@ -49,7 +54,7 @@ const TopologySlider = React.forwardRef(({ renderImage, wireframeImage }, ref) =
         const rect = containerRef.current.getBoundingClientRect();
         const x = Math.max(0, Math.min(e.touches[0].clientX - rect.left, rect.width));
         const percentage = (x / rect.width) * 100;
-        setSliderPosition(percentage);
+        sliderPosition.set(percentage);
     };
 
     return (
@@ -60,40 +65,42 @@ const TopologySlider = React.forwardRef(({ renderImage, wireframeImage }, ref) =
             </h3>
             <div
                 ref={containerRef}
-                className="relative w-full aspect-video rounded-xl overflow-hidden cursor-ew-resize select-none shadow-2xl"
+                className="relative w-full aspect-video rounded-xl overflow-hidden cursor-ew-resize select-none shadow-2xl will-change-transform" // Hint to browser
                 onMouseMove={handleMouseMove}
                 onTouchMove={handleTouchMove}
             >
-                {/* Image 1: Wireframe (Background - Left Side Reveal) */}
+                {/* Image 1: Wireframe (Background - Left Side) */}
                 <img
                     src={wireframeImage}
                     alt="Wireframe"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    loading="lazy"
                 />
 
-                {/* Image 2: Render (Foreground - Clipped - Right Side Reveal) */}
-                <div
+                {/* Image 2: Render (Foreground - Clipped - Right Side) */}
+                <motion.div
                     className="absolute inset-0 w-full h-full pointer-events-none"
-                    style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+                    style={{ clipPath }} // Framer Motion handles style update directly
                 >
                     <img
                         src={renderImage}
                         alt="Render"
                         className="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
                     />
-                </div>
+                </motion.div>
 
                 {/* Slider Handle */}
-                <div
+                <motion.div
                     className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-10 shadow-[0_0_10px_rgba(0,0,0,0.5)]"
-                    style={{ left: `${sliderPosition}%` }}
+                    style={{ left: sliderLeft }} // Framer Motion handles style update directly
                 >
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
                         <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
                             <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Labels */}
                 <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-10">Render</div>
@@ -304,6 +311,7 @@ const DungeonProps = () => {
                                     src={categoryImages[feature.category] || itemPlaceholder}
                                     alt={feature.category}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
                                     <h3 className="text-xl font-bold text-white">
@@ -329,6 +337,7 @@ const DungeonProps = () => {
                                                     src={itemPlaceholder}
                                                     alt={item}
                                                     className="w-full h-full object-cover"
+                                                    loading="lazy"
                                                 />
                                                 <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-1 text-center">
                                                     <span className="text-xs text-white font-medium">Placeholder</span>
@@ -375,7 +384,7 @@ const DungeonProps = () => {
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div className="p-4">
-                            <div className="text-primary font-bold text-2xl mb-2">4K</div>
+                            <div className="text-primary font-bold text-2xl mb-2">2K</div>
                             <div className="text-gray-500 text-sm">PBR Textures</div>
                         </div>
                         <div className="p-4">
@@ -383,8 +392,8 @@ const DungeonProps = () => {
                             <div className="text-gray-500 text-sm">Universal Formats</div>
                         </div>
                         <div className="p-4">
-                            <div className="text-primary font-bold text-2xl mb-2">LODs</div>
-                            <div className="text-gray-500 text-sm">Optimized Levels</div>
+                            <div className="text-primary font-bold text-2xl mb-2">Modular</div>
+                            <div className="text-gray-500 text-sm">Optimized Assets</div>
                         </div>
                         <div className="p-4">
                             <div className="text-primary font-bold text-2xl mb-2">Game Ready</div>
