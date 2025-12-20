@@ -5,7 +5,8 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
 
-**Live Demo:** [zohair-banoori-portfolio.vercel.app](https://zohair-banoori-portfolio.vercel.app)
+**Website is Live:** [zohair-banoori-portfolio.vercel.app](https://zohair-banoori-portfolio.vercel.app)
+![Portfolio Preview](./src/assets/demo.gif)
 
 My personal portfolio website showcasing my 3D art and VR development projects. This site uses a **Hybrid Architecture** to balance immersive 3D visuals with raw performance.
 
@@ -13,7 +14,7 @@ My personal portfolio website showcasing my 3D art and VR development projects. 
 
 - **Hybrid Routing Architecture**: Combines a seamless Single Page Application (SPA) flow for the main content with dedicated routes for projects to ensure maximum WebGL performance.
 - **Interactive 3D Hero**: A physics-based floating entry point rendered with **React Three Fiber**.
-- **Performance Optimized**: Uses **Draco compression** for 3D assets and **Lazy Loading** for routes to maintain a high frame rate.
+- **Performance Optimized**: Uses **Lazy Loading** for routes to maintain a high frame rate.
 - **Smart Contact Form**: Integrated with **EmailJS** for auto-replies and instant notifications.
 - **Responsive & Accessible**: Fully optimized for mobile, tablet, and desktop with dark/light mode support.
 
@@ -29,7 +30,7 @@ My personal portfolio website showcasing my 3D art and VR development projects. 
 
 1. **Clone the repository:**
 ```
-git clone [https://github.com/lolbanoori/Zohair-Portfolio.git](https://github.com/lolbanoori/Zohair-Portfolio.git)
+git clone https://github.com/lolbanoori/Zohair-Portfolio.git
 cd Zohair-Portfolio
 ```
 
@@ -50,9 +51,6 @@ VITE_EMAILJS_TEMPLATE_AUTOREPLY_ID=your_autoreply_template_id
 ```
 npm run dev
 ```
-
-## Architecture Note
-To prevent WebGL context loss and GPU overload, this project unmounts the heavy home screen 3D scene when navigating to individual project details. This allows heavy content (like Unity WebGL builds or Marmoset Viewers) to utilize 100% of available resources without crashing the browser.
 
 ## License
 This project is licensed under the MIT License.
