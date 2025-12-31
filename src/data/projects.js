@@ -61,5 +61,33 @@ export const projects = [
         tools: ["Unity", "WebGL", "C#"],
         demoLink: "#",
         modelUrl: null
+    },
+    {
+        id: "dungeon-props",
+        title: "Dungeon Attributes & Asset Pack",
+        description: "A comprehensive library of modular assets designed for ease of use and maximum flexibility.",
+        type: "Unity Asset",
+        image: "/images/projects/dungeon/gallery/Thumbnail_chests.png",
+        tools: ["Blender", "Unity", "Substance Painter"],
+        demoLink: "#",
+        videoUrl: "/images/projects/dungeon/trailer.mp4",
+        features: [
+            { category: "Tables & Chairs", items: ["Table", "Chair", "Stool", "Bench"] },
+            { category: "Barrels & Crates", items: ["Barrel", "Bucket (With Water)", "Large Crate", "Small Crate"] },
+            { category: "Chests", items: ["Large Chest", "Jewellery Chest"] },
+            { category: "Scrolls", items: ["Large Scroll", "Small Scroll", "Sealed Scroll", "Parchment"] },
+            { category: "Books", items: ["Books (6 Variations)", "Book Stack"] },
+            { category: "Treasure", items: ["Small Gold Pile", "Huge Gold Pile", "Gold Coins (Face up & Face down)", "Silver Plate", "Goblet (Simple)", "Goblet (With Rubies)", "Diamond", "Sapphire", "Opal", "Gold-Ruby Necklace"] },
+            { category: "Utensils", items: ["Large Mug", "Small Mug", "Jug", "Bowl", "Spoon"] }
+        ],
+        gallery: [
+            { render: "/images/projects/dungeon/gallery/Thumbnail_chests.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_barrels.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_books.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_scrolls.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_table.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_treasure.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_utensils.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" }
+        ]
     }
 ];
