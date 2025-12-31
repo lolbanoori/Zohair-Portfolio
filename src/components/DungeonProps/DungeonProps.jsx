@@ -31,87 +31,8 @@ const categoryImages = {
 // Determine the project data
 const projectData = projects.find(p => p.id === 'dungeon-props');
 
-// Topology Slider: Optimized with useMotionValue (No React Re-renders on Drag)
-const TopologySlider = React.forwardRef(({ renderImage, wireframeImage }, ref) => {
-    // Use MotionValue instead of useState for high-performance updates
-    const sliderPosition = useMotionValue(50);
-    const containerRef = useRef(null);
-
-    // Create derivative values for styles
-    const clipPath = useTransform(sliderPosition, (v) => `inset(0 ${100 - v}% 0 0)`);
-    const sliderLeft = useTransform(sliderPosition, (v) => `${v}%`);
-
-    const handleMouseMove = (e) => {
-        if (!containerRef.current) return;
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-        const percentage = (x / rect.width) * 100;
-        sliderPosition.set(percentage); // Direct update, no react render
-    };
-
-    const handleTouchMove = (e) => {
-        if (!containerRef.current) return;
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = Math.max(0, Math.min(e.touches[0].clientX - rect.left, rect.width));
-        const percentage = (x / rect.width) * 100;
-        sliderPosition.set(percentage);
-    };
-
-    return (
-        <div ref={ref} className="w-full max-w-4xl mx-auto my-20 scroll-mt-24">
-            <h3 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white flex items-center justify-center gap-2">
-                <Layers className="w-6 h-6 text-primary" />
-                Topology Inspector
-            </h3>
-            <div
-                ref={containerRef}
-                className="relative w-full aspect-video rounded-xl overflow-hidden cursor-ew-resize select-none shadow-2xl will-change-transform" // Hint to browser
-                onMouseMove={handleMouseMove}
-                onTouchMove={handleTouchMove}
-            >
-                {/* Image 1: Wireframe (Background - Left Side) */}
-                <img
-                    src={wireframeImage}
-                    alt="Wireframe"
-                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                    loading="lazy"
-                />
-
-                {/* Image 2: Render (Foreground - Clipped - Right Side) */}
-                <motion.div
-                    className="absolute inset-0 w-full h-full pointer-events-none"
-                    style={{ clipPath }} // Framer Motion handles style update directly
-                >
-                    <img
-                        src={renderImage}
-                        alt="Render"
-                        className="absolute inset-0 w-full h-full object-cover"
-                        loading="lazy"
-                    />
-                </motion.div>
-
-                {/* Slider Handle */}
-                <motion.div
-                    className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-10 shadow-[0_0_10px_rgba(0,0,0,0.5)]"
-                    style={{ left: sliderLeft }} // Framer Motion handles style update directly
-                >
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Labels */}
-                <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-10">Render</div>
-                <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm z-10">Wireframe</div>
-            </div>
-            <p className="text-center text-gray-500 dark:text-gray-400 mt-4 text-sm">
-                Drag the slider to inspect mesh topology
-            </p>
-        </div>
-    );
-});
+// --- REPLACED BY src/components/ui/ComparisonSlider.jsx ---
+import ComparisonSlider from '../ui/ComparisonSlider';
 
 const ImmersiveShowcase = ({ title, description }) => {
     const containerRef = useRef(null);
@@ -369,11 +290,23 @@ const DungeonProps = () => {
             </div>
 
             {/* Topology Section */}
-            <TopologySlider
-                ref={topologyRef}
-                renderImage={activeTopology.render}
-                wireframeImage={activeTopology.wireframe}
-            />
+            <div ref={topologyRef} className="w-full max-w-4xl mx-auto my-20 scroll-mt-24">
+                <h3 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white flex items-center justify-center gap-2">
+                    <Layers className="w-6 h-6 text-primary" />
+                    Topology Inspector
+                </h3>
+
+                <ComparisonSlider
+                    topImage={activeTopology.render}
+                    bottomImage={activeTopology.wireframe}
+                    topLabel="Render"
+                    bottomLabel="Wireframe"
+                />
+
+                <p className="text-center text-gray-500 dark:text-gray-400 mt-4 text-sm">
+                    Drag the slider to inspect mesh topology
+                </p>
+            </div>
 
             {/* Technical Specs / Footer */}
             <div className="bg-white dark:bg-gray-800 py-16 mt-12 border-t border-gray-200 dark:border-gray-700">
