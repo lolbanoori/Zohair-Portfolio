@@ -52,5 +52,10 @@ VITE_EMAILJS_TEMPLATE_AUTOREPLY_ID=your_autoreply_template_id
 npm run dev
 ```
 
-## License
-This project is licensed under the MIT License.
+## Copyright & License
+
+**© 2025 Zohair Banoori. All Rights Reserved.**
+
+This repository is strictly proprietary.
+- **Viewing:** Allowed for evaluation and educational purposes.
+- **Usage:** **Strictly Prohibited.** You may not copy, modify, or distribute any part of this code or its assets without written permission.
