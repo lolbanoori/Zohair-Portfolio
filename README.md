@@ -43,7 +43,11 @@ npm install
 ```
 VITE_EMAILJS_SERVICE_ID=your_service_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
+
+# The ID for the "Notification" template
 VITE_EMAILJS_TEMPLATE_NOTIFICATION_ID=your_notification_template_id
+
+# The ID for the "AutoReply" template
 VITE_EMAILJS_TEMPLATE_AUTOREPLY_ID=your_autoreply_template_id
 ```
 
