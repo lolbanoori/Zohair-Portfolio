@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { projects } from '../data/projects';
+import ComparisonSlider from '../components/ui/ComparisonSlider';
 
 const ProjectDetails = () => {
     const { id } = useParams();
@@ -110,8 +111,52 @@ const ProjectDetails = () => {
                 </div>
             )}
 
-            {/* Content Placeholder for next phases (Features, Gallery, etc.) */}
-            <div className="h-screen flex items-center justify-center text-gray-500">
+            {/* --- INTERACTIVE GALLERY (Topology Sliders) --- */}
+            {project.gallery && project.gallery.length > 0 && (
+                <div className="py-24 bg-light dark:bg-dark">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-3xl md:text-5xl font-bold text-center mb-16 text-primary"
+                        >
+                            Asset Collection
+                        </motion.h2>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                            {project.gallery.map((item, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    className="flex flex-col space-y-4"
+                                >
+                                    {/* Slider Container */}
+                                    <div className="rounded-xl overflow-hidden shadow-xl ring-1 ring-gray-200 dark:ring-gray-700">
+                                        <ComparisonSlider
+                                            topImage={item.wireframe}
+                                            bottomImage={item.render}
+                                            topLabel="Wireframe"
+                                            bottomLabel="Render"
+                                        />
+                                    </div>
+
+                                    {/* Optional Caption (if we had item names) */}
+                                    <div className="text-center text-gray-500 text-sm font-medium uppercase tracking-widest">
+                                        Asset {index + 1}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Content Placeholder for next phases (Features, etc.) */}
+            <div className="h-40 flex items-center justify-center text-gray-500">
                 More content coming soon...
             </div>
         </div>

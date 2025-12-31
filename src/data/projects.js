@@ -58,13 +58,13 @@ export const projects = [
             { category: "Utensils", items: ["Large Mug", "Small Mug", "Jug", "Bowl", "Spoon"] }
         ],
         gallery: [
-            "/images/projects/dungeon/gallery/Thumbnail_chests.png",
-            "/images/projects/dungeon/gallery/Thumbnail_barrels.png",
-            "/images/projects/dungeon/gallery/Thumbnail_books.png",
-            "/images/projects/dungeon/gallery/Thumbnail_scrolls.png",
-            "/images/projects/dungeon/gallery/Thumbnail_table.png",
-            "/images/projects/dungeon/gallery/Thumbnail_treasure.png",
-            "/images/projects/dungeon/gallery/Thumbnail_utensils.png"
+            { render: "/images/projects/dungeon/gallery/Thumbnail_chests.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_barrels.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_books.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_scrolls.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_table.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_treasure.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" },
+            { render: "/images/projects/dungeon/gallery/Thumbnail_utensils.png", wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale" }
         ]
     }
 ];
