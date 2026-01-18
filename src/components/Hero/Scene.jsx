@@ -14,9 +14,9 @@ const Scene = () => {
     const materialRef = useRef();
     const innerMaterialRef = useRef();
     const [hovered, setHovered] = useState(false);
-    const timeRef = useRef(0); // Custom time tracker for variable speed
+    const timeRef = useRef(0); 
     const glitchEndTime = useRef(0);
-    const lastGlitchTime = useRef(-3000); // Initialize to allow immediate glitch
+    const lastGlitchTime = useRef(-3000); 
 
     const uniforms = useMemo(() => ({
         uTime: { value: 0 },
@@ -24,16 +24,13 @@ const Scene = () => {
     }), []);
 
     useFrame((state, delta) => {
-        // 1. Variable Time Update for Pulse
         const timeSpeed = hovered ? 9.0 : 1.0;
         timeRef.current += delta * timeSpeed;
 
-        // 2. Group Rotation (Constant)
         if (groupRef.current) {
             groupRef.current.rotation.x += delta * 0.2;
             groupRef.current.rotation.y += delta * 0.3;
 
-            // 3. Glitch Effect (Position Jitter)
             if (Date.now() < glitchEndTime.current) {
                 groupRef.current.position.x = (Math.random() - 0.5) * 0.2;
                 groupRef.current.position.y = (Math.random() - 0.5) * 0.2;
@@ -43,17 +40,13 @@ const Scene = () => {
             }
         }
 
-        // Calculate animation state once
-        const t = state.clock.elapsedTime * 0.5; // Speed of color cycle
+        const t = state.clock.elapsedTime * 0.5; 
         const index = Math.floor(t) % COLORS.length;
         const nextIndex = (index + 1) % COLORS.length;
         const alpha = t % 1;
-
-        // 4. Shader Time & Color Update (Wireframe)
         if (materialRef.current) {
             materialRef.current.uniforms.uTime.value = timeRef.current;
 
-            // Wireframe is 2 steps ahead
             const wireIndex = (index + 2) % COLORS.length;
             const wireNextIndex = (nextIndex + 2) % COLORS.length;
 
@@ -64,7 +57,6 @@ const Scene = () => {
             );
         }
 
-        // 5. Color Shift Animation (Base)
         if (innerMaterialRef.current) {
             innerMaterialRef.current.color.lerpColors(
                 new THREE.Color(COLORS[index]),
@@ -102,9 +94,8 @@ const Scene = () => {
             ref={groupRef}
             onPointerOver={() => {
                 setHovered(true);
-                // Only glitch if 3 seconds have passed since last glitch
                 if (Date.now() - lastGlitchTime.current > 3000) {
-                    glitchEndTime.current = Date.now() + 200; // Glitch for 0.2s
+                    glitchEndTime.current = Date.now() + 200; 
                     lastGlitchTime.current = Date.now();
                 }
             }}

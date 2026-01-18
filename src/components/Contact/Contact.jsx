@@ -13,24 +13,20 @@ const Contact = () => {
         setStatus({ type: '', message: '' });
 
         const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-        const notificationTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_NOTIFICATION_ID; // ID for the email sent to YOU
-        const autoReplyTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_AUTOREPLY_ID;     // ID for the email sent to THEM
+        const notificationTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_NOTIFICATION_ID;
+        const autoReplyTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_AUTOREPLY_ID;
         const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-        // 1. Send Notification to YOU
         const sendNotification = emailjs.sendForm(serviceId, notificationTemplateId, formRef.current, publicKey);
 
-        // 2. Send Auto-Reply to THEM
         const sendAutoReply = emailjs.sendForm(serviceId, autoReplyTemplateId, formRef.current, publicKey);
 
-        // Wait for BOTH to finish
         Promise.all([sendNotification, sendAutoReply])
             .then(() => {
                 setStatus({ type: 'success', message: 'Message sent successfully! Check your inbox for a confirmation.' });
                 formRef.current.reset();
             })
             .catch((error) => {
-                // Even if one fails, we log it, but usually, if one works, the connection is good.
                 setStatus({ type: 'error', message: 'Failed to send message. Please try again later.' });
                 console.error("Email Error:", error);
             })
@@ -42,7 +38,6 @@ const Contact = () => {
     return (
         <section id="contact" className="py-20 bg-light dark:bg-dark transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Header Section remains the same... */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
                     <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -51,9 +46,7 @@ const Contact = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {/* Contact Info Side - No changes needed here */}
                     <div className="space-y-8">
-                        {/* ... (Keep your existing Contact Info code) ... */}
                         <div className="flex items-start space-x-4">
                             <div className="p-3 bg-primary/10 rounded-lg text-primary">
                                 <Mail size={24} />
@@ -63,7 +56,6 @@ const Contact = () => {
                                 <p className="text-gray-600 dark:text-gray-400">banoorizohair@gmail.com</p>
                             </div>
                         </div>
-                        {/* ... (Keep Phone and Location) ... */}
                         <div className="flex items-start space-x-4">
                             <div className="p-3 bg-secondary/10 rounded-lg text-secondary">
                                 <Phone size={24} />
@@ -85,12 +77,10 @@ const Contact = () => {
                         </div>
                     </div>
 
-                    {/* Contact Form - CRITICAL CHANGES HERE */}
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-                                {/* CHANGED: name="user_name" -> name="name" */}
                                 <input
                                     type="text"
                                     name="name"
@@ -102,7 +92,6 @@ const Contact = () => {
                             </div>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-                                {/* CHANGED: name="user_email" -> name="email" */}
                                 <input
                                     type="email"
                                     name="email"
@@ -115,7 +104,6 @@ const Contact = () => {
                         </div>
                         <div>
                             <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</label>
-                            {/* This was already correct */}
                             <input
                                 type="text"
                                 name="subject"
@@ -127,7 +115,6 @@ const Contact = () => {
                         </div>
                         <div>
                             <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-                            {/* This was already correct */}
                             <textarea
                                 name="message"
                                 id="message"
