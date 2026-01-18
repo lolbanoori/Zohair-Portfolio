@@ -14,6 +14,8 @@ My personal portfolio website showcasing my 3D art and VR development projects. 
 
 - **Hybrid Routing Architecture**: Combines a seamless Single Page Application (SPA) flow for the main content with dedicated routes for projects to ensure maximum WebGL performance.
 - **Interactive 3D Hero**: A physics-based floating entry point rendered with **React Three Fiber**.
+- **Advanced Scrollytelling**: Immersive video playback controlled by scroll position for cinematic project intros.
+- **Dynamic Asset Inspection**: Custom "Topology Inspector" with interactive sliding comparison (Render vs Wireframe) and neon UI.
 - **Performance Optimized**: Uses **Lazy Loading** for routes to maintain a high frame rate.
 - **Smart Contact Form**: Integrated with **EmailJS** for auto-replies and instant notifications.
 - **Responsive & Accessible**: Fully optimized for mobile, tablet, and desktop with dark/light mode support.
@@ -21,9 +23,9 @@ My personal portfolio website showcasing my 3D art and VR development projects. 
 ## Tech Stack
 
 - **Core**: React (v18), Vite, React Router DOM
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS, Patrick Hand Font (Google Fonts)
 - **3D & Graphics**: Three.js, @react-three/fiber, @react-three/drei
-- **Animation**: Framer Motion
+- **Animation**: Framer Motion (Scroll, Spring, Transform)
 - **Services**: EmailJS (Contact functionality)
 
 ## Installation & Setup
