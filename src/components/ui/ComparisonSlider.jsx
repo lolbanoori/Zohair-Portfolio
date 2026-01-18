@@ -2,6 +2,17 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { ArrowLeftRight } from 'lucide-react';
 
+/**
+ * ComparisonSlider UI Component
+ * 
+ * A reusable interactive slider for comparing two images (e.g., Render vs Wireframe).
+ * Supports mouse and touch dragging, with neon-styled labels for each side.
+ * 
+ * @param {string} topImage - URL for the overlay image (Left side).
+ * @param {string} bottomImage - URL for the base image (Right side).
+ * @param {string} topLabel - Label text for the top image.
+ * @param {string} bottomLabel - Label text for the bottom image.
+ */
 const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLabel = "After" }) => {
     const [isResizing, setIsResizing] = useState(false);
     const containerRef = useRef(null);
@@ -66,34 +77,34 @@ const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLa
             onClick={handleClick}
             style={{ touchAction: 'none' }} // Crucial for mobile
         >
-            {/* Bottom Image (After/Base) */}
+            {/* Bottom Image (After/Base) - WIREFRAME */}
             <div className="absolute inset-0 w-full h-full">
                 <img
                     src={bottomImage}
-                    alt="Bottom (After)"
+                    alt="Bottom (Wireframe)"
                     className="w-full h-full object-cover pointer-events-none"
                     draggable="false"
                 />
                 {bottomLabel && (
-                    <span className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-bold backdrop-blur-sm z-10">
+                    <span className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-cyan-500/30 text-cyan-400 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] z-10 uppercase pointer-events-none">
                         {bottomLabel}
                     </span>
                 )}
             </div>
 
-            {/* Top Image (Before/Overlay) */}
+            {/* Top Image (Before/Overlay) - RENDER */}
             <motion.div
-                className="absolute inset-0 w-full h-full overflow-hidden"
+                className="absolute inset-0 w-full h-full overflow-hidden z-20"
                 style={{ clipPath }}
             >
                 <img
                     src={topImage}
-                    alt="Top (Before)"
+                    alt="Top (Render)"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     draggable="false"
                 />
                 {topLabel && (
-                    <span className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-bold backdrop-blur-sm z-10">
+                    <span className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-red-500/30 text-red-500 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(239,68,68,0.5)] z-30 uppercase pointer-events-none">
                         {topLabel}
                     </span>
                 )}

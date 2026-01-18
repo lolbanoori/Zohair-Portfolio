@@ -6,6 +6,12 @@ import ScrollToTop from './components/Utils/ScrollToTop';
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
 
+/**
+ * App Root Component
+ * 
+ * Sets up global providers, routing, and layout structure.
+ * Uses Framer Motion's LazyMotion to reduce initial bundle size.
+ */
 function App() {
     return (
         <>
@@ -14,7 +20,7 @@ function App() {
                 <Layout>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/project/:id" element={<ProjectDetails />} />
+                        <Route path="/projects/:id" element={<ProjectDetails />} />
                     </Routes>
                 </Layout>
             </LazyMotion>
