@@ -60,12 +60,7 @@ const About = () => {
     };
 
     const ref = React.useRef(null);
-    const isInView = useTransform(useMotionValue(0), v => v) // Dummy transform to keep hooks consistent if needed, but actually we need useInView hook.
-    // Wait, I should import useInView properly.
-    // Let's rewrite the imports and the component start.
-
-    // Actually, I can just use the ref on the paragraph or the span.
-    // Let's use a ref for the text container.
+    const isInView = useTransform(useMotionValue(0), v => v)
     const textRef = React.useRef(null);
     const isTextInView = useInView(textRef);
 

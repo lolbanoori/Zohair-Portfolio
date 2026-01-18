@@ -7,7 +7,7 @@ import ComparisonSlider from '../components/ui/ComparisonSlider';
 
 const ProjectDetails = () => {
     const { id } = useParams();
-    const project = projects.find(p => p.id === id || p.id === Number(id)); // Handle string/number IDs
+    const project = projects.find(p => p.id === id || p.id === Number(id)); 
     const containerRef = useRef(null);
 
     // Parallax Scroll Hooks
@@ -16,8 +16,8 @@ const ProjectDetails = () => {
         offset: ["start start", "end start"]
     });
 
-    const yText = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]); // Text moves slower
-    const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);   // Background moves slightly
+    const yText = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]); 
+    const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);   
 
     if (!project) {
         return <div className="h-screen flex items-center justify-center text-white">Project not found</div>;
@@ -36,9 +36,9 @@ const ProjectDetails = () => {
                     style={{ y: yBg }}
                     className="absolute inset-0 z-0"
                 >
-                    <div className="absolute inset-0 bg-black/60 z-10" /> {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-black/60 z-10" /> 
                     <img
-                        src={project.image} // Using the main image (should be Atlas for dungeon)
+                        src={project.image} 
                         alt={project.title}
                         className="w-full h-full object-cover"
                     />
@@ -86,11 +86,11 @@ const ProjectDetails = () => {
                             initial={{ scale: 0.9, opacity: 0.5 }}
                             whileInView={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            viewport={{ once: true, margin: "-100px" }} // Trigger slightly before center
+                            viewport={{ once: true, margin: "-100px" }}
                             className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10"
                         >
                             <iframe
-                                src={project.videoUrl} // Note: This assumes local file or embeddable URL. For local MP4, use video tag.
+                                src={project.videoUrl} 
                                 title="Project Trailer"
                                 className="w-full h-full object-cover"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
