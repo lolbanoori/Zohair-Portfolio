@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import LogoLight from '../../assets/ZBVR_logo-Light.png';
 import LogoDark from '../../assets/ZBVR_logo-Dark.png';
 
 const Navbar = ({ theme, toggleTheme }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const navLinks = [
         { name: 'Home', path: '/' },
@@ -14,13 +16,34 @@ const Navbar = ({ theme, toggleTheme }) => {
         { name: 'Contact', path: '/#contact' },
     ];
 
-    const handleScroll = (id) => {
+    const handleScroll = (path) => {
         setIsOpen(false);
-        if (id === '/') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // If simply going home
+        if (path === '/') {
+            if (location.pathname !== '/') {
+                navigate('/');
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
             return;
         }
-        const element = document.getElementById(id.replace('/#', ''));
+
+        // Handle section links
+        if (location.pathname !== '/') {
+            // Navigate to home, then hash will be handled by the browser or we can force it
+            // Simple navigation to the root with hash usually works in standard router setup
+            navigate(path);
+
+            // Optional: A small delay to ensure page load before scroll if simple hash nav fails
+            // But usually <Link to="/#id"> works. Here we are using buttons and manual handling.
+            // Since we navigate with hash, browser might handle it.
+            return;
+        }
+
+        // We are already on Home, smooth scroll to section
+        const id = path.replace('/#', '');
+        const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
@@ -29,7 +52,8 @@ const Navbar = ({ theme, toggleTheme }) => {
     return (
         <nav className="fixed w-full z-50 bg-light/80 dark:bg-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+                <div className="relative flex items-center justify-between h-16">
+                    {/* Logo Section */}
                     <div className="flex-shrink-0 cursor-pointer flex items-center gap-2" onClick={() => handleScroll('/')}>
                         <img
                             src={theme === 'light' ? LogoLight : LogoDark}
@@ -41,27 +65,31 @@ const Navbar = ({ theme, toggleTheme }) => {
                         </span>
                     </div>
 
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-4">
-                            {navLinks.map((link) => (
-                                <button
-                                    key={link.name}
-                                    onClick={() => handleScroll(link.path)}
-                                    className="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                                >
-                                    {link.name}
-                                </button>
-                            ))}
+                    {/* Desktop Navigation - Centered */}
+                    <div className="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center space-x-8">
+                        {navLinks.map((link) => (
                             <button
-                                onClick={toggleTheme}
-                                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                                aria-label="Toggle Theme"
+                                key={link.name}
+                                onClick={() => handleScroll(link.path)}
+                                className="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
                             >
-                                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                                {link.name}
                             </button>
-                        </div>
+                        ))}
                     </div>
 
+                    {/* Desktop Theme Toggle - Right Aligned */}
+                    <div className="hidden md:flex items-center">
+                        <button
+                            onClick={toggleTheme}
+                            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                            aria-label="Toggle Theme"
+                        >
+                            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                        </button>
+                    </div>
+
+                    {/* Mobile Controls */}
                     <div className="md:hidden flex items-center">
                         <button
                             onClick={toggleTheme}

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { X, ExternalLink, Github } from 'lucide-react';
 
@@ -69,15 +69,25 @@ const ProjectModal = ({ project, onClose }) => {
                         </div>
 
                         <div className="flex space-x-4">
-                            <a
-                                href={project.demoLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
-                            >
-                                <ExternalLink size={20} />
-                                <span>Live Demo</span>
-                            </a>
+                            {project.isInternalLink ? (
+                                <Link
+                                    to={project.demoLink}
+                                    className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+                                >
+                                    <ExternalLink size={20} />
+                                    <span>Dive In</span>
+                                </Link>
+                            ) : (
+                                <a
+                                    href={project.demoLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex-1 flex items-center justify-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+                                >
+                                    <ExternalLink size={20} />
+                                    <span>Live Demo</span>
+                                </a>
+                            )}
                             <a
                                 href="#"
                                 className="flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
