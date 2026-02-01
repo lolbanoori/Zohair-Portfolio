@@ -14,11 +14,11 @@
  * @property {Array} features - (Blender Only) Categories for the Asset Gallery.
  */
 
-// Import Images
+// Import Global Images
 import dungeonThumbnail from '../assets/dungeon-props/Thumbnail_Image_.png';
 import dungeonTrailer from '../assets/dungeon-props/Cinematic Trailer/dummy_video.mp4';
 
-// Category Thumbnails
+// --- CATEGORY THUMBNAILS ---
 import tablesThumb from '../assets/dungeon-props/Table & Chairs/Thumbnail_Table & Chairs.png';
 import barrelsThumb from '../assets/dungeon-props/Barrels & Crates/Thumbnail_Barrels & Crates.png';
 import chestsThumb from '../assets/dungeon-props/Chests/Thumbnail_Chests.png';
@@ -26,6 +26,93 @@ import scrollsThumb from '../assets/dungeon-props/Scrolls/Thumbnail_Scrolls.png'
 import booksThumb from '../assets/dungeon-props/Books/Thumbnail_Books.png';
 import treasureThumb from '../assets/dungeon-props/Treasure/Thumbnail_Treasure.png';
 import utensilsThumb from '../assets/dungeon-props/Utensils/Thumbnail_Utensils.png';
+
+// --- ASSET IMPORTS (Render & Wireframe) ---
+
+// 1. Tables & Chairs
+import renderTable from '../assets/dungeon-props/Table & Chairs/Render_Table.png';
+import wireTable from '../assets/dungeon-props/Table & Chairs/Wireframe_Table.png';
+import renderChair from '../assets/dungeon-props/Table & Chairs/Render_Chair.png';
+import wireChair from '../assets/dungeon-props/Table & Chairs/Wireframe_Chair.png';
+import renderStool from '../assets/dungeon-props/Table & Chairs/Render_Stool.png';
+import wireStool from '../assets/dungeon-props/Table & Chairs/Wireframe_Stool.png';
+import renderBench from '../assets/dungeon-props/Table & Chairs/Render_Bench.png';
+import wireBench from '../assets/dungeon-props/Table & Chairs/Wireframe_Bench.png';
+
+// 2. Barrels & Crates
+import renderBarrel from '../assets/dungeon-props/Barrels & Crates/Render_Barrel.png';
+import wireBarrel from '../assets/dungeon-props/Barrels & Crates/Wireframe_Barrel.png';
+import renderBucket from '../assets/dungeon-props/Barrels & Crates/Render_Bucket.png';
+import wireBucket from '../assets/dungeon-props/Barrels & Crates/Wireframe_Bucket.png';
+import renderLargeCrate from '../assets/dungeon-props/Barrels & Crates/Render_LargeCrate.png';
+import wireLargeCrate from '../assets/dungeon-props/Barrels & Crates/Wireframe_LargeCrate.png';
+import renderSmallCrate from '../assets/dungeon-props/Barrels & Crates/Render_SmallCrate.png';
+import wireSmallCrate from '../assets/dungeon-props/Barrels & Crates/Wireframe_SmallCrate.png';
+
+// 3. Chests
+import renderLargeChest from '../assets/dungeon-props/Chests/Render_LargeChest.png';
+import wireLargeChest from '../assets/dungeon-props/Chests/Wireframe_LargeChest.png';
+import renderJewelChest from '../assets/dungeon-props/Chests/Render_JewelleryChest.png';
+import wireJewelChest from '../assets/dungeon-props/Chests/Wireframe_JewelleryChest.png';
+import renderTreasureChest from '../assets/dungeon-props/Chests/Render_TreasureChest.png';
+import wireTreasureChest from '../assets/dungeon-props/Chests/Wireframe_TreasureChest.png';
+
+// 4. Scrolls
+import renderLargeScroll from '../assets/dungeon-props/Scrolls/Render_LargeScroll.png';
+import wireLargeScroll from '../assets/dungeon-props/Scrolls/Wireframe_LargeScroll.png';
+import renderSmallScroll from '../assets/dungeon-props/Scrolls/Render_SmallScroll.png';
+import wireSmallScroll from '../assets/dungeon-props/Scrolls/Wireframe_SmallScroll.png';
+
+// 5. Books
+import renderBookStack from '../assets/dungeon-props/Books/Render_BookStack.png';
+import wireBookStack from '../assets/dungeon-props/Books/Wireframe_BookStack.png';
+import renderBook1 from '../assets/dungeon-props/Books/Render_Book1.png';
+import wireBook1 from '../assets/dungeon-props/Books/Wireframe_Book1.png';
+import renderBook2 from '../assets/dungeon-props/Books/Render_Book2.png';
+import wireBook2 from '../assets/dungeon-props/Books/Wireframe_Book2.png';
+import renderBook3 from '../assets/dungeon-props/Books/Render_Book3.png';
+import wireBook3 from '../assets/dungeon-props/Books/Wireframe_Book3.png';
+import renderBook4 from '../assets/dungeon-props/Books/Render_Book4.png';
+import wireBook4 from '../assets/dungeon-props/Books/Wireframe_Book4.png';
+import renderBook5 from '../assets/dungeon-props/Books/Render_Book5.png';
+import wireBook5 from '../assets/dungeon-props/Books/Wireframe_Book5.png';
+import renderBook6 from '../assets/dungeon-props/Books/Render_Book6.png';
+import wireBook6 from '../assets/dungeon-props/Books/Wireframe_Book6.png';
+
+// 6. Treasure
+import renderHugeGold from '../assets/dungeon-props/Treasure/Render_HugeGoldPile.png';
+import wireHugeGold from '../assets/dungeon-props/Treasure/Wireframe_HugeGoldPile.png';
+import renderSmallGold from '../assets/dungeon-props/Treasure/Render_SmallGoldPile.png';
+import wireSmallGold from '../assets/dungeon-props/Treasure/Wireframe_SmallGoldPile.png';
+import renderSilverPlate from '../assets/dungeon-props/Treasure/Render_SilverPlate.png';
+import wireSilverPlate from '../assets/dungeon-props/Treasure/Wireframe_SilverPlate.png';
+import renderGoblet from '../assets/dungeon-props/Treasure/Render_Goblet.png';
+import wireGoblet from '../assets/dungeon-props/Treasure/Wireframe_Goblet.png';
+import renderRubyGoblet from '../assets/dungeon-props/Treasure/Render_RubyGoblet.png';
+import wireRubyGoblet from '../assets/dungeon-props/Treasure/Wireframe_RubyGoblet.png';
+import renderDiamond from '../assets/dungeon-props/Treasure/Render_Diamond.png';
+import wireDiamond from '../assets/dungeon-props/Treasure/Wireframe_Diamond.png';
+import renderOpal from '../assets/dungeon-props/Treasure/Render_Opal.png';
+import wireOpal from '../assets/dungeon-props/Treasure/Wireframe_Opal.png';
+import renderSapphire from '../assets/dungeon-props/Treasure/Render_Sapphire.png';
+import wireSapphire from '../assets/dungeon-props/Treasure/Wireframe_Sapphire.png';
+import renderRubyNecklace from '../assets/dungeon-props/Treasure/Render_RubyNecklace.png';
+import wireRubyNecklace from '../assets/dungeon-props/Treasure/Wireframe_RubyNecklace.png';
+
+// 7. Utensils
+import renderFatMug from '../assets/dungeon-props/Utensils/Render_FatMug.png';
+import wireFatMug from '../assets/dungeon-props/Utensils/Wireframe_FatMug.png';
+import renderThinMug from '../assets/dungeon-props/Utensils/Render_ThinMug.png';
+import wireThinMug from '../assets/dungeon-props/Utensils/Wireframe_ThinMug.png';
+import renderJug from '../assets/dungeon-props/Utensils/Render_Jug.png';
+import wireJug from '../assets/dungeon-props/Utensils/Wireframe_Jug.png';
+import renderBowl from '../assets/dungeon-props/Utensils/Render_Bowl.png';
+import wireBowl from '../assets/dungeon-props/Utensils/Wireframe_Bowl.png';
+import renderSpoon from '../assets/dungeon-props/Utensils/Render_Spoon.png';
+import wireSpoon from '../assets/dungeon-props/Utensils/Wireframe_Spoon.png';
+import renderPlate from '../assets/dungeon-props/Utensils/Render_Plate.png';
+import wirePlate from '../assets/dungeon-props/Utensils/Wireframe_Plate.png';
+
 
 export const projects = [
     {
@@ -44,69 +131,77 @@ export const projects = [
                 category: "Tables & Chairs",
                 image: tablesThumb,
                 items: [
-                    { name: "Table", image: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Chair", image: "https://images.unsplash.com/photo-1596162955779-9c927c02b339?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Stool", image: "https://images.unsplash.com/photo-1503602642458-23211144584b?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Bench", image: "https://images.unsplash.com/photo-1555699897-987820465345?auto=format&fit=crop&q=80&w=800" }
+                    { name: "Table", image: renderTable, wireframe: wireTable },
+                    { name: "Chair", image: renderChair, wireframe: wireChair },
+                    { name: "Stool", image: renderStool, wireframe: wireStool },
+                    { name: "Bench", image: renderBench, wireframe: wireBench }
                 ]
             },
             {
                 category: "Barrels & Crates",
                 image: barrelsThumb,
                 items: [
-                    { name: "Barrel", image: "https://images.unsplash.com/photo-1610444582845-a7b539f15049?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Bucket (Water)", image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a3e9?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Large Crate", image: "https://images.unsplash.com/photo-1589362304975-d4e5eb3266bd?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Small Crate", image: "https://images.unsplash.com/photo-1590740050819-3f436e4f3a47?auto=format&fit=crop&q=80&w=800" }
+                    { name: "Barrel", image: renderBarrel, wireframe: wireBarrel },
+                    { name: "Bucket (Water)", image: renderBucket, wireframe: wireBucket },
+                    { name: "Large Crate", image: renderLargeCrate, wireframe: wireLargeCrate },
+                    { name: "Small Crate", image: renderSmallCrate, wireframe: wireSmallCrate }
                 ]
             },
             {
                 category: "Chests",
                 image: chestsThumb,
                 items: [
-                    { name: "Large Chest", image: "https://images.unsplash.com/photo-1519074069444-1ba4fff9a09c?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Jewellery Chest", image: "https://images.unsplash.com/photo-1582201942988-13e60e4556ee?auto=format&fit=crop&q=80&w=800" }
+                    { name: "Large Chest", image: renderLargeChest, wireframe: wireLargeChest },
+                    { name: "Jewellery Chest", image: renderJewelChest, wireframe: wireJewelChest },
+                    { name: "Treasure Chest", image: renderTreasureChest, wireframe: wireTreasureChest }
                 ]
             },
             {
                 category: "Scrolls",
                 image: scrollsThumb,
                 items: [
-                    { name: "Large", image: "https://images.unsplash.com/photo-1586551846467-33acb8f3621d?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Small", image: "https://images.unsplash.com/photo-1579781354189-a29fe497c270?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Sealed", image: "https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Parchment", image: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=800" }
+                    { name: "Large Scroll", image: renderLargeScroll, wireframe: wireLargeScroll },
+                    { name: "Small Scroll", image: renderSmallScroll, wireframe: wireSmallScroll }
                 ]
             },
             {
                 category: "Books",
                 image: booksThumb,
                 items: [
-                    { name: "Book Stack", image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Ancient Tome", image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Grimoire", image: "https://images.unsplash.com/photo-1585146629732-44039d6785e5?auto=format&fit=crop&q=80&w=800" }
+                    { name: "Book Stack", image: renderBookStack, wireframe: wireBookStack },
+                    { name: "Book I", image: renderBook1, wireframe: wireBook1 },
+                    { name: "Book II", image: renderBook2, wireframe: wireBook2 },
+                    { name: "Book III", image: renderBook3, wireframe: wireBook3 },
+                    { name: "Book IV", image: renderBook4, wireframe: wireBook4 },
+                    { name: "Book V", image: renderBook5, wireframe: wireBook5 },
+                    { name: "Book VI", image: renderBook6, wireframe: wireBook6 }
                 ]
             },
             {
                 category: "Treasure",
                 image: treasureThumb,
                 items: [
-                    { name: "Gold Piles", image: "https://images.unsplash.com/photo-1620574387735-3624d75b2dbc?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Coins", image: "https://images.unsplash.com/photo-1634547466858-a90a294871e4?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Silver Plate", image: "https://images.unsplash.com/photo-1627585098048-ae9c9860471a?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Goblets", image: "https://images.unsplash.com/photo-1601614271032-45e69e0000a4?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Gems", image: "https://images.unsplash.com/photo-1617050587747-e23be293158c?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Necklace", image: "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?auto=format&fit=crop&q=80&w=800" }
+                    { name: "Huge Gold Pile", image: renderHugeGold, wireframe: wireHugeGold },
+                    { name: "Gold Coins", image: renderSmallGold, wireframe: wireSmallGold },
+                    { name: "Silver Plate", image: renderSilverPlate, wireframe: wireSilverPlate },
+                    { name: "Goblet", image: renderGoblet, wireframe: wireGoblet },
+                    { name: "Ruby Goblet", image: renderRubyGoblet, wireframe: wireRubyGoblet },
+                    { name: "Ruby Necklace", image: renderRubyNecklace, wireframe: wireRubyNecklace },
+                    { name: "Diamond", image: renderDiamond, wireframe: wireDiamond },
+                    { name: "Opal", image: renderOpal, wireframe: wireOpal },
+                    { name: "Sapphire", image: renderSapphire, wireframe: wireSapphire }
                 ]
             },
             {
                 category: "Utensils",
                 image: utensilsThumb,
                 items: [
-                    { name: "Mugs", image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Jug", image: "https://images.unsplash.com/photo-1602755255018-b2031a0e8822?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Bowl", image: "https://images.unsplash.com/photo-1567058236209-4171d1568285?auto=format&fit=crop&q=80&w=800" },
-                    { name: "Spoon", image: "https://images.unsplash.com/photo-1619623830209-646a78465dc0?auto=format&fit=crop&q=80&w=800" }
+                    { name: "Fat Mug", image: renderFatMug, wireframe: wireFatMug },
+                    { name: "Thin Mug", image: renderThinMug, wireframe: wireThinMug },
+                    { name: "Jug", image: renderJug, wireframe: wireJug },
+                    { name: "Bowl", image: renderBowl, wireframe: wireBowl },
+                    { name: "Plate", image: renderPlate, wireframe: wirePlate },
+                    { name: "Spoon", image: renderSpoon, wireframe: wireSpoon }
                 ]
             }
         ]
