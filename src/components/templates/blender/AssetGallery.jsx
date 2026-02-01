@@ -28,7 +28,7 @@ const AssetGallery = ({ features, onInspect }) => {
             onInspect({
                 name: previewAsset.name,
                 render: previewAsset.image,
-                wireframe: previewAsset.image + "&grayscale"
+                wireframe: previewAsset.wireframe || (previewAsset.image + "&grayscale")
             });
             setSelectedCategory(null);
         }
@@ -73,6 +73,25 @@ const AssetGallery = ({ features, onInspect }) => {
                                 </div>
                             </motion.button>
                         ))}
+
+                        {/* More Assets Coming Soon - Visual Placeholder */}
+                        <div className="relative md:col-span-2 lg:col-span-2 h-64 md:h-80 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-800 flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-900/50">
+
+                            {/* Blurred Placeholders */}
+                            <div className="flex gap-4 opacity-30 blur-sm transform scale-95 pointer-events-none select-none">
+                                <div className="w-40 h-52 bg-gray-200 dark:bg-gray-800 rounded-xl"></div>
+                                <div className="w-40 h-52 bg-gray-300 dark:bg-gray-700 rounded-xl"></div>
+                                <div className="w-40 h-52 bg-gray-200 dark:bg-gray-800 rounded-xl hidden md:block"></div>
+                            </div>
+
+                            {/* Handwritten Note Overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="transform -rotate-6 bg-[#ffffd0] text-black px-6 py-4 shadow-xl max-w-sm text-center font-['Patrick_Hand'] text-2xl leading-tight rounded-sm border border-yellow-200/50 paper-clipped">
+                                    <span className="block text-3xl mb-1 text-gray-800">✨</span>
+                                    More assets coming soon!
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <div className="text-center py-20 text-gray-500">No categories found.</div>

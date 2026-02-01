@@ -22,6 +22,10 @@ const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLa
     const clipPath = useTransform(x, v => `inset(0 ${100 - v}% 0 0)`);
     const leftPos = useTransform(x, v => `${v}%`);
 
+    // Fade out bottom label as slider approaches the right edge (where the label is)
+    // This simulates the "cover" effect even if the top image is transparent
+    const bottomLabelOpacity = useTransform(x, [85, 95], [1, 0]);
+
     const handleResize = useCallback((clientX) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
@@ -86,9 +90,12 @@ const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLa
                     draggable="false"
                 />
                 {bottomLabel && (
-                    <span className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-cyan-500/30 text-cyan-400 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] z-10 uppercase pointer-events-none">
+                    <motion.span
+                        style={{ opacity: bottomLabelOpacity }}
+                        className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-cyan-500/30 text-cyan-400 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] z-10 uppercase pointer-events-none"
+                    >
                         {bottomLabel}
-                    </span>
+                    </motion.span>
                 )}
             </div>
 
@@ -98,8 +105,8 @@ const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLa
                 style={{ clipPath }}
             >
                 <img
-                    src={topImage}
-                    alt="Top (Render)"
+                        src={topImage}
+                        alt="Top (Render)"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     draggable="false"
                 />
