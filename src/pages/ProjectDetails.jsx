@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { projects } from '../data/projects';
 import BlenderTemplate from '../components/templates/BlenderTemplate';
+import AssetInspector from '../components/ui/AssetInspector';
 
 /**
  * ProjectDetails Dispatcher
