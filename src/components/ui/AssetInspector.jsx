@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { ArrowLeftRight } from 'lucide-react';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 /**
  * AssetInspector UI Component
@@ -73,59 +74,70 @@ const AssetInspector = ({ topImage, bottomImage, topLabel = "Before", bottomLabe
     };
 
     return (
-        <div
-            ref={containerRef}
-            className="relative w-full h-[400px] md:h-[600px] overflow-hidden select-none group cursor-ew-resize rounded-xl shadow-2xl"
-            onMouseDown={onMouseDown}
-            onTouchStart={onTouchStart}
-            onClick={handleClick}
-            style={{ touchAction: 'none' }} // Crucial for mobile
-        >
-            {/* Bottom Image (After/Base) - WIREFRAME */}
-            <div className="absolute inset-0 w-full h-full">
-                <img
-                    src={bottomImage}
-                    alt="Bottom (Wireframe)"
-                    className="w-full h-full object-cover pointer-events-none"
-                    draggable="false"
-                />
-                {bottomLabel && (
-                    <motion.span
-                        style={{ opacity: bottomLabelOpacity }}
-                        className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-cyan-500/30 text-cyan-400 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] z-10 uppercase pointer-events-none"
+        <div className="w-full h-[400px] md:h-[600px] rounded-xl shadow-2xl overflow-hidden relative bg-black">
+            <TransformWrapper
+                initialScale={1}
+                minScale={1}
+                maxScale={4}
+                centerOnInit
+            >
+                <TransformComponent wrapperClass="w-full h-full" contentClass="w-full h-full">
+                    <div
+                        ref={containerRef}
+                        className="relative w-full h-full select-none group cursor-ew-resize"
+                        onMouseDown={onMouseDown}
+                        onTouchStart={onTouchStart}
+                        onClick={handleClick}
+                        style={{ touchAction: 'none' }} // Crucial for mobile
                     >
-                        {bottomLabel}
-                    </motion.span>
-                )}
-            </div>
+                        {/* Bottom Image (After/Base) - WIREFRAME */}
+                        <div className="absolute inset-0 w-full h-full">
+                            <img
+                                src={bottomImage}
+                                alt="Bottom (Wireframe)"
+                                className="w-full h-full object-cover pointer-events-none"
+                                draggable="false"
+                            />
+                            {bottomLabel && (
+                                <motion.span
+                                    style={{ opacity: bottomLabelOpacity }}
+                                    className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-cyan-500/30 text-cyan-400 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] z-10 uppercase pointer-events-none"
+                                >
+                                    {bottomLabel}
+                                </motion.span>
+                            )}
+                        </div>
 
-            {/* Top Image (Before/Overlay) - RENDER */}
-            <motion.div
-                className="absolute inset-0 w-full h-full overflow-hidden z-20"
-                style={{ clipPath }}
-            >
-                <img
-                    src={topImage}
-                    alt="Top (Render)"
-                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                    draggable="false"
-                />
-                {topLabel && (
-                    <span className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-red-500/30 text-red-500 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(239,68,68,0.5)] z-30 uppercase pointer-events-none">
-                        {topLabel}
-                    </span>
-                )}
-            </motion.div>
+                        {/* Top Image (Before/Overlay) - RENDER */}
+                        <motion.div
+                            className="absolute inset-0 w-full h-full overflow-hidden z-20"
+                            style={{ clipPath }}
+                        >
+                            <img
+                                src={topImage}
+                                alt="Top (Render)"
+                                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                                draggable="false"
+                            />
+                            {topLabel && (
+                                <span className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-red-500/30 text-red-500 text-sm font-bold tracking-widest drop-shadow-[0_0_8px_rgba(239,68,68,0.5)] z-30 uppercase pointer-events-none">
+                                    {topLabel}
+                                </span>
+                            )}
+                        </motion.div>
 
-            {/* Handle */}
-            <motion.div
-                className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_10px_rgba(0,0,0,0.5)] z-20"
-                style={{ left: leftPos }}
-            >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary">
-                    <ArrowLeftRight size={20} />
-                </div>
-            </motion.div>
+                        {/* Handle */}
+                        <motion.div
+                            className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_10px_rgba(0,0,0,0.5)] z-20"
+                            style={{ left: leftPos }}
+                        >
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary">
+                                <ArrowLeftRight size={20} />
+                            </div>
+                        </motion.div>
+                    </div>
+                </TransformComponent>
+            </TransformWrapper>
         </div>
     );
 };
