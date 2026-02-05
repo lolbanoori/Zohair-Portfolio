@@ -1,4 +1,11 @@
 import React, { useRef, useState } from 'react';
+
+/**
+ * DungeonProps Component
+ * 
+ * A specific project showcase page for the "Dungeon Props" asset pack.
+ * Implements a scrollytelling immersive showcase followed by an interactive asset inspector.
+ */
 import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from 'framer-motion';
 import { ArrowLeft, Layers, Box, Cpu, CornerRightDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -31,8 +38,7 @@ const categoryImages = {
 // Determine the project data
 const projectData = projects.find(p => p.id === 'dungeon-props');
 
-// --- REPLACED BY src/components/ui/ComparisonSlider.jsx ---
-import ComparisonSlider from '../ui/ComparisonSlider';
+import AssetInspector from '../ui/AssetInspector';
 
 const ImmersiveShowcase = ({ title, description }) => {
     const containerRef = useRef(null);
@@ -164,28 +170,28 @@ const ImmersiveShowcase = ({ title, description }) => {
 };
 
 const DungeonProps = () => {
-    // Interactive State for Topology Slider
-    const [activeTopology, setActiveTopology] = useState({
+    // Interactive State for Inspector
+    const [activeAsset, setActiveAsset] = useState({
         render: thumbChests,
         wireframe: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale"
     });
 
     // Auto-scroll ref
-    const topologyRef = useRef(null);
+    const inspectorRef = useRef(null);
 
     if (!projectData) return <div>Project Not Found</div>;
 
     const dummyWireframe = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200&grayscale";
 
     const handleAssetClick = (category) => {
-        setActiveTopology({
+        setActiveAsset({
             render: categoryImages[category] || itemPlaceholder,
             wireframe: dummyWireframe
         });
 
-        // Auto-scroll to topology section
-        if (topologyRef.current) {
-            topologyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Auto-scroll to inspector section
+        if (inspectorRef.current) {
+            inspectorRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     };
 
@@ -289,16 +295,16 @@ const DungeonProps = () => {
                 </div>
             </div>
 
-            {/* Topology Section */}
-            <div ref={topologyRef} className="w-full max-w-4xl mx-auto my-20 scroll-mt-24">
+            {/* Inspector Section */}
+            <div ref={inspectorRef} className="w-full max-w-4xl mx-auto my-20 scroll-mt-24">
                 <h3 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white flex items-center justify-center gap-2">
                     <Layers className="w-6 h-6 text-primary" />
-                    Topology Inspector
+                    Asset Inspector
                 </h3>
 
-                <ComparisonSlider
-                    topImage={activeTopology.render}
-                    bottomImage={activeTopology.wireframe}
+                <AssetInspector
+                    topImage={activeAsset.render}
+                    bottomImage={activeAsset.wireframe}
                     topLabel="Render"
                     bottomLabel="Wireframe"
                 />

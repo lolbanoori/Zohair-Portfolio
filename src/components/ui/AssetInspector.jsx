@@ -3,7 +3,7 @@ import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { ArrowLeftRight } from 'lucide-react';
 
 /**
- * ComparisonSlider UI Component
+ * AssetInspector UI Component
  * 
  * A reusable interactive slider for comparing two images (e.g., Render vs Wireframe).
  * Supports mouse and touch dragging, with neon-styled labels for each side.
@@ -13,7 +13,7 @@ import { ArrowLeftRight } from 'lucide-react';
  * @param {string} topLabel - Label text for the top image.
  * @param {string} bottomLabel - Label text for the bottom image.
  */
-const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLabel = "After" }) => {
+const AssetInspector = ({ topImage, bottomImage, topLabel = "Before", bottomLabel = "After" }) => {
     const [isResizing, setIsResizing] = useState(false);
     const containerRef = useRef(null);
     const x = useMotionValue(50); // Percentage 0-100
@@ -105,8 +105,8 @@ const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLa
                 style={{ clipPath }}
             >
                 <img
-                        src={topImage}
-                        alt="Top (Render)"
+                    src={topImage}
+                    alt="Top (Render)"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     draggable="false"
                 />
@@ -130,4 +130,4 @@ const ComparisonSlider = ({ topImage, bottomImage, topLabel = "Before", bottomLa
     );
 };
 
-export default ComparisonSlider;
+export default AssetInspector;
