@@ -310,7 +310,7 @@ const DungeonProps = () => {
                 />
 
                 <p className="text-center text-gray-500 dark:text-gray-400 mt-4 text-sm">
-                    Drag the slider to inspect mesh topology
+                    Currently inspecting: <span className="text-primary font-bold">Dungeon Assets</span>
                 </p>
             </div>
 
