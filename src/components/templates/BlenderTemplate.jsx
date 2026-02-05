@@ -66,7 +66,7 @@ const BlenderTemplate = ({ project }) => {
                             bottomLabel="Render"
                         />
                         <p className="text-center text-gray-500 dark:text-gray-400 mt-4 text-sm">
-                            Drag the slider to inspect mesh topology for: <span className="text-primary font-bold">{selectedAsset.name}</span>
+                            Currently inspecting: <span className="text-primary font-bold">{selectedAsset.name}</span>
                         </p>
                     </div>
                 ) : (
